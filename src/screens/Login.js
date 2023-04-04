@@ -18,9 +18,9 @@ function Login() {
       setLoginText("");
       console.log("Clicked!");
       if (username != "" && password != "")  {
-        set(ref(database, `users/${username}`), {password: password});
+        set(ref(database, `users/${username}`), {password: password, timer: 60});
         setCurrUser(username);
-        navigate("/timer", {state: {currUser: currUser}});
+        navigate("/timer", {state: {currUser: currUser, timer: 60}});
       } else {
         setLoginText("Invalid username/password.");
       }
