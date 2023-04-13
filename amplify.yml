@@ -17,24 +17,21 @@ frontend:
 
 test:
   phases:
-    preTest:
+    preBuild:
       commands:
-        - npm ci
-        - npm install -g pm2
-        - npm install -g wait-on
-        - npm install mocha mochawesome mochawesome-merge mochawesome-report-generator
-        - pm2 start npm -- start
-        - wait-on http://localhost:3000
-    test:
+        - yarn install
+    build:
       commands:
-        - 'npx cypress run --reporter mochawesome --reporter-options "reportDir=cypress/report/mochawesome-report,overwrite=false,html=false,json=true,timestamp=mmddyyyy_HHMMss"'
-    postTest:
-      commands:
-        - npx mochawesome-merge cypress/report/mochawesome-report/mochawesome*.json > cypress/report/mochawesome.json
-        - pm2 kill
+        - yarn build
   artifacts:
-    baseDirectory: cypress
-    configFilePath: '**/mochawesome.json'
+    baseDirectory: build
     files:
-      - '**/*.png'
-      - '**/*.mp4'
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+  amplifyapp:
+    phases:
+      preDeploy:
+        commands:
+          - yarn cypress:run
