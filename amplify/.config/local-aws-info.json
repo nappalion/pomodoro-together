@@ -1,12 +1,7 @@
 {
-  "dev": {
-    "configLevel": "project",
-    "useProfile": false,
-    "awsConfigFilePath": "C:\\Users\\piolo\\.amplify\\awscloudformation\\5lsL1NKG4S"
-  },
   "backend": {
     "configLevel": "project",
     "useProfile": false,
-    "awsConfigFilePath": "C:\\Users\\piolo\\.amplify\\awscloudformation\\HyppaD7YIp"
+    "awsConfigFilePath": "C:\\Users\\piolo\\.amplify\\awscloudformation\\vM1DCnbpc7"
   }
 }
