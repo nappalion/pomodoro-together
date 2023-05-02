@@ -15,3 +15,23 @@ frontend:
     paths:
       - node_modules/**/*
 
+test:
+  phases:
+    preBuild:
+      commands:
+        - yarn install
+    build:
+      commands:
+        - yarn build
+  artifacts:
+    baseDirectory: build
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+  amplifyapp:
+    phases:
+      preDeploy:
+        commands:
+          - yarn cypress:run
