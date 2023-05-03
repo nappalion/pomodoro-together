@@ -7,9 +7,6 @@ import { ref, child, get, set} from "firebase/database";
 
 import { useNavigate } from 'react-router-dom';
 
-import SettingsIcon from '../assets/settings-fill.svg'
-<img src={SettingsIcon}/>
-
 function Login() {
     const navigate = useNavigate();
     const [loginText, setLoginText] = useState("");

@@ -7,7 +7,7 @@ import Timer from './screens/Timer';
 
 const styles={
   app: {
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
 }
 

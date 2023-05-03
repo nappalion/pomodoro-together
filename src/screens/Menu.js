@@ -7,8 +7,19 @@ import React from 'react';
 
 function Menu(props) {
 
+    const styles = {
+        container: {
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: 100,
+            height: 100,
+            backgroundColor: 'black'
+        }
+    }
+
     return(
-        false
+        <div style={styles.container}></div>
     );
 }
 

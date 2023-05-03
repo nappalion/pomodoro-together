@@ -8,8 +8,18 @@ import React from 'react';
 
 function TimerGroup(props) {
 
+    const styles = {
+        container: {
+            width: 700,
+            height: 1000,
+            backgroundColor: '#9EB3C2'
+        }
+    }
+
     return(
-        false
+        <div style={styles.container}>
+            
+        </div>
     );
 }
 
