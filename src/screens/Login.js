@@ -7,6 +7,9 @@ import { ref, child, get, set} from "firebase/database";
 
 import { useNavigate } from 'react-router-dom';
 
+import SettingsIcon from '../assets/settings-fill.svg'
+<img src={SettingsIcon}/>
+
 function Login() {
     const navigate = useNavigate();
     const [loginText, setLoginText] = useState("");
@@ -99,6 +102,7 @@ function Login() {
     return (
 
             <div style={styles.container}>
+
               <img src={logo} alt="Logo" style={styles.logo}></img>
               <text style={{color: '#1C1C1C', fontSize: 13, marginTop: 5}}>{loginText}</text>
               <TextInput placeholder="Username" value={username} onChangeText={handleChangeUsername} />
