@@ -15,7 +15,7 @@ import { ref, child, get, set, onValue} from "firebase/database";
 function Table(props) {
     const navigate = useNavigate();
 
-    const {style, data, headerText } = props;
+    const {style, data, headerText, noIcons } = props;
 
     const styles = {
         row: {
@@ -77,12 +77,12 @@ function Table(props) {
                     {data.map((item, index) => (
                         <tr onClick={()=> handleRowClick(item.groupKey)} style={styles.row} key={index}>
                             <td >{item.name}</td>
-                            <td >{Object.keys(item.users).length} / 50</td>
+                            <td >{Object.keys(item.users).length} / {item.roomCapacity}</td>
                             <td>
-                                <img style={styles.icon} src={GroupSettingsIcon} />
+                                {!noIcons && <img style={styles.icon} src={GroupSettingsIcon} />}
                             </td>
                             <td>
-                                <img style={styles.icon} src={RemoveGroupIcon} />
+                                { !noIcons && <img style={styles.icon} src={RemoveGroupIcon} />}
                             </td>
                         </tr>
                     ))}

@@ -28,7 +28,7 @@ function CreateGroup() {
         container: {
             width: '100%',
             display: 'flex',
-            justifyContent: 'space-between',
+            justifyContent: 'center',
             alignItems: 'center'
         },
 
@@ -40,14 +40,7 @@ function CreateGroup() {
 
 
         <div style={styles.container}>
-            <div style={styles.leftSide}> 
-                <AddGroupForm />
-            </div>
-
-            <div style={styles.rightSide}>
-                
-            </div>
-            
+            <AddGroupForm />
         </div>
 
     </Layout>

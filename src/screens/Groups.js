@@ -64,7 +64,7 @@ function Groups(props) {
         <Layout header="Groups Screen" style={styles.screen}>
             <div style={{...styles.screen, ...styles.main}}>
                 <Table style={styles.container} headerText="My Groups" data={myGroupsData}/>
-                <Table style={styles.container} headerText="Discover" data={discoverData}/>
+                <Table style={styles.container} headerText="Discover" data={discoverData} noIcons={true}/>
             </div>
         </Layout>
     );
