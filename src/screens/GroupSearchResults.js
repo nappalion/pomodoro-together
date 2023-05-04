@@ -8,7 +8,7 @@ import React from 'react';
 function GroupSearchResults(props) {
 
     return(
-        false
+        <text style={{color: 'black'}}>group search results screen</text>
     );
 }
 

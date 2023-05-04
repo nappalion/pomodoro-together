@@ -11,7 +11,7 @@ import React from 'react';
 function Groups(props) {
 
     return(
-        false
+        <text style={{color: 'black'}}>groups screen</text>
     );
 }
 

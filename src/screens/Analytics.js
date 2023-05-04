@@ -9,7 +9,7 @@ import React from 'react';
 function Analytics(props) {
 
     return(
-        false
+        <text style={{color: 'black'}}>analytics screen</text>
     );
 }
 

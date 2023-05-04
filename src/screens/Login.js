@@ -68,7 +68,6 @@ function Login() {
         setLoginText("");
         setPassword(event.target.value);
     }
-  
 
   
     const styles = {
@@ -103,13 +102,13 @@ function Login() {
               <img src={logo} alt="Logo" style={styles.logo}></img>
               <text style={{color: '#1C1C1C', fontSize: 13, marginTop: 5}}>{loginText}</text>
               <TextInput placeholder="Username" value={username} onChangeText={handleChangeUsername} />
-              <TextInput placeholder="Password" value={password} onChangeText={handleChangePassword} />
+              <TextInput placeholder="Password" value={password} onChangeText={handleChangePassword}/>
               <text style={styles.textButton}>Forgot Password?</text>
               <Button onClick={() => login(username)} style={{marginTop: 50}} text="Log In"/>
               
               <div>
               <text style={styles.text}>Don't have an account?  </text>
-              <text style={styles.textButton} onClick={() => { createUser(username, password) }}>Sign Up</text>
+              <text style={styles.textButton} onClick={() => { navigate('/signup') }}>Sign Up</text>
               </div>
             </div>
           

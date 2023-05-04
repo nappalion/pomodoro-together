@@ -10,7 +10,7 @@ import React from 'react';
 function GroupAddUser(props) {
 
     return(
-        false
+        <text style={{color: 'black'}}>add group screen</text>
     );
 }
 

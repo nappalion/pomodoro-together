@@ -10,9 +10,9 @@ function TimerGroup(props) {
 
     const styles = {
         container: {
-            width: 700,
-            height: 1000,
-            backgroundColor: '#9EB3C2'
+            height: '100vh',
+            backgroundColor: '#9EB3C2',
+            borderRadius: 16
         }
     }
 
