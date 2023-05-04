@@ -80,6 +80,10 @@ function Timer() {
         });
     }, []); 
 
+    onValue(ref(database, 'groups/'), (snapshot) => {
+        console.log("hello")
+    })
+
 
     return(
         
@@ -94,7 +98,7 @@ function Timer() {
                 </div>
 
                 <div style={styles.rightSide}>
-                    <TimerGroup users={currGroupUsers}/>
+                    <TimerGroup currGroup={currGroup} users={currGroupUsers}/>
                 </div>
                 
             </div>

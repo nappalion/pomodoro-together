@@ -68,6 +68,7 @@ function UserTimer(props) {
         const userId = auth.currentUser.uid
         console.log('groups/' + currGroup + "/users/" + userId)
         set(ref(database, 'groups/' + currGroup + "/users/" + auth.currentUser.uid + "/timer"), timer);
+        set(ref(database, 'groups/' + currGroup + "/users/" + auth.currentUser.uid + "/isRunning"), false);
     }
 
     function increaseTimer() {
@@ -82,6 +83,8 @@ function UserTimer(props) {
 
     function startTimer() {
         setIsRunning(true);
+        console.log('groups/' + currGroup + "/users/" + auth.currentUser.uid + "/isRunning")
+        set(ref(database, 'groups/' + currGroup + "/users/" + auth.currentUser.uid + "/isRunning"), true);
         const id = setInterval(() => {
             if (timer > 0) {
                 setTimer(timer => timer - 1);

@@ -8,7 +8,7 @@ import React from 'react';
 import OtherTimer from './OtherTimer';
 
 function TimerGroup(props) {
-    const {users} = props;
+    const {users, currGroup} = props;
 
     const styles = {
         container: {
@@ -19,13 +19,11 @@ function TimerGroup(props) {
         }
     }
 
-
-
     return(
         <div style={styles.container}>
             {users &&  
                 Object.keys(users).map(userKey => (
-                    <OtherTimer key={userKey} username={users[userKey].username} time={users[userKey].timer}/>
+                    <OtherTimer key={userKey} userId={userKey} currGroup={currGroup} username={users[userKey].username} time={users[userKey].timer}/>
                 ))
             }
 
