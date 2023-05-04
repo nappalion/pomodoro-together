@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import logo1 from "../assets/logo1.PNG"
+import logo1 from "../assets/logo1.jpg"
 import Button from '../components/Button';
 import TextInput from '../components/TextInput';
 import { database } from "../firebaseConfig.js"
