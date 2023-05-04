@@ -6,7 +6,8 @@ Display the results (the groups) that the user searched in the Group screen sear
 import React from 'react';
 
 function GroupSearchResults(props) {
-
+    
+    
     return(
         <span style={{color: 'black'}}>group search results screen</span>
     );
