@@ -17,12 +17,17 @@ const options = {
     },
   };
 
-const data = {
+
+
+const PieChart = (props) => {
+  const {userData} = props;
+  
+  const data = {
     labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
     datasets: [
       {
         label: 'Focus minutes by day of the week',
-        data: [12, 19, 3, 5, 2, 3, 25],
+        data: userData,
         backgroundColor: [
           'rgba(255, 99, 132, 0.5)',
           'rgba(54, 162, 235, 0.5)',
@@ -46,13 +51,11 @@ const data = {
     ],
   }
 
-const PieChart = () => {
-
 
   return (
     <div>
 
-      <div>
+      <div style={props.style}>
         <Pie data = {data} options = {options}>
         </Pie>
       </div>

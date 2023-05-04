@@ -9,10 +9,11 @@ import { ref, child, get, set, onValue} from "firebase/database";
 
 function Layout(props) {
 
-    const [menuVisible, setMenuVisible] = useState(false);
-    const [currGroupName, setCurrGroupName] = useState("")
-    
+    const { header } = props;
 
+    const [menuVisible, setMenuVisible] = useState(false);
+    const [currGroupName, setCurrGroupName] = useState("");
+    
     useEffect(() => {
         const userId = auth.currentUser.uid
         const userCurrGroupRef = ref(database, 'users/' + userId + '/currGroup');
@@ -26,11 +27,13 @@ function Layout(props) {
         });
       }, []); 
 
+    console.log( header );
+
     return(
         <div style={{...props.style, ...styles.container}}>
             <div style={styles.header}>
                 <img src={MenuIcon} style={styles.menuIcon} onClick={() => { setMenuVisible(!menuVisible); }}/>
-                <span style={styles.headerTitle}>{currGroupName}</span>
+                <span style={styles.headerTitle}>{ header ? header : currGroupName}</span>
             </div>
 
             {menuVisible && <Menu onExit={() => setMenuVisible(false)}/>}

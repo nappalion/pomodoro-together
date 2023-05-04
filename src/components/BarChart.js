@@ -38,24 +38,27 @@ import {
     },
   };
 
-  const labels = ['User 1', 'User 2', 'User 3', 'User 4', 'User 5'];
+
+
+const BarChart = (props) => {
+
+  const {labels, userData} = props;
 
   const data = {
     labels,
     datasets: [
       {
         label: 'Top 5 Users',
-        data: [90, 70, 50, 38, 20],
+        data: userData,
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
     ],
   };
 
-const BarChart = () => {
   return (
-    <div>
-      <Bar options={options} data={data} />;
+    <div style={props.style}>
+      <Bar options={options} data={data} />
     </div>
   )
 }

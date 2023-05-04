@@ -67,7 +67,7 @@ function Table(props) {
                 <thead style={styles.header}>
                     <tr>
                         <th>Name</th>
-                        <th>Users Online</th>
+                        <th>Users</th>
                         {/*empty columns for buttons*/}
                         <th></th>
                         <th></th>
