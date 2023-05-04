@@ -58,7 +58,7 @@ function Analytics() {
             <div style={styles.container}>
                 <div style={styles.leftSide}> 
                     <h1>
-                        <LineChart />
+                        
                         <LineChartStacked />
                     </h1>
                 </div>

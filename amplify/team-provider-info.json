@@ -1,28 +1,15 @@
 {
-  "backend": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-pomodorotogether-backend-65436-authRole",
-      "UnauthRoleArn": "arn:aws:iam::676004505431:role/amplify-pomodorotogether-backend-65436-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::676004505431:role/amplify-pomodorotogether-backend-65436-authRole",
-      "Region": "us-west-1",
-      "DeploymentBucketName": "amplify-pomodorotogether-backend-65436-deployment",
-      "UnauthRoleName": "amplify-pomodorotogether-backend-65436-unauthRole",
-      "StackName": "amplify-pomodorotogether-backend-65436",
-      "StackId": "arn:aws:cloudformation:us-west-1:676004505431:stack/amplify-pomodorotogether-backend-65436/d26ea050-b777-11ed-8745-02c9702178ab",
-      "AmplifyAppId": "d3cuilaexx3xql"
-    }
-  },
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-pomodorotogether-dev-65201-authRole",
-      "UnauthRoleArn": "arn:aws:iam::676004505431:role/amplify-pomodorotogether-dev-65201-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::676004505431:role/amplify-pomodorotogether-dev-65201-authRole",
+      "AuthRoleName": "amplify-pomotogfinal-dev-15009-authRole",
+      "UnauthRoleArn": "arn:aws:iam::047444543843:role/amplify-pomotogfinal-dev-15009-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::047444543843:role/amplify-pomotogfinal-dev-15009-authRole",
       "Region": "us-west-1",
-      "DeploymentBucketName": "amplify-pomodorotogether-dev-65201-deployment",
-      "UnauthRoleName": "amplify-pomodorotogether-dev-65201-unauthRole",
-      "StackName": "amplify-pomodorotogether-dev-65201",
-      "StackId": "arn:aws:cloudformation:us-west-1:676004505431:stack/amplify-pomodorotogether-dev-65201/7648b0e0-b777-11ed-8f6c-0222e86a1d13",
-      "AmplifyAppId": "d3cuilaexx3xql"
+      "DeploymentBucketName": "amplify-pomotogfinal-dev-15009-deployment",
+      "UnauthRoleName": "amplify-pomotogfinal-dev-15009-unauthRole",
+      "StackName": "amplify-pomotogfinal-dev-15009",
+      "StackId": "arn:aws:cloudformation:us-west-1:047444543843:stack/amplify-pomotogfinal-dev-15009/ae358c80-ea58-11ed-a612-06643b012587",
+      "AmplifyAppId": "d3tmexmmnkqfff"
     }
   }
 }
