@@ -8,7 +8,7 @@ import React from 'react';
 function Settings(props) {
 
     return(
-        <text style={{color: 'black'}}>settings screen</text>
+        <span style={{color: 'black'}}>settings screen</span>
     );
 }
 

@@ -2,10 +2,13 @@
 Holds the timer component for the user
 */
 
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { database } from "../firebaseConfig.js"
 import { ref, child, get, set} from "firebase/database";
 import {useLocation, useNavigate} from 'react-router-dom';
+
+import { auth } from "../firebaseConfig.js"
+import { signInWithEmailAndPassword } from '@firebase/auth';
 
 import Button from './Button.js';
 
@@ -36,28 +39,35 @@ const styles = {
 }
 
 function UserTimer(props) {
-    const location = useLocation();
+    const { currGroup } = props;
 
-    const [timer, setTimer] = useState(location.state.timer);
+    const [timer, setTimer] = useState(60);
     const [isRunning, setIsRunning] = useState(false);
     const [intervalId, setIntervalId] = useState(null);
 
     const minutes = Math.floor(timer / 60);
     const seconds = Math.round(timer % 60).toString().padStart(2, '0');  
 
-    function startTimer() {
-        setIsRunning(true);
-        const id = setInterval(() => {
-            if (timer > 0) {
-                setTimer(timer => timer - 1);
+    useEffect(() => {
+        const userId = auth.currentUser.uid
+        console.log("curr group: " + currGroup)
+        const timerRef = ref(database, `groups/${currGroup}/users/${userId}/timer`);
+        get(timerRef).then((snapshot) => {
+            if (snapshot.exists()) {
+                console.log(snapshot.val())
+              setTimer(snapshot.val());
+            } else {
+              // If the timer value doesn't exist in the database, set it to 60
+              setTimer(60);
             }
-        }, 1000);
-        setIntervalId(id);
-    }
+        });
+    }, [currGroup])
+
 
     function saveTime() {
-        console.log('users/' + location.state.currUser + "/timer")
-        set(ref(database, 'users/' + location.state.currUser + "/timer"), timer);
+        const userId = auth.currentUser.uid
+        console.log('groups/' + currGroup + "/users/" + userId)
+        set(ref(database, 'groups/' + currGroup + "/users/" + auth.currentUser.uid + "/timer"), timer);
     }
 
     function increaseTimer() {
@@ -70,6 +80,16 @@ function UserTimer(props) {
         }
     }
 
+    function startTimer() {
+        setIsRunning(true);
+        const id = setInterval(() => {
+            if (timer > 0) {
+                setTimer(timer => timer - 1);
+            }
+        }, 1000);
+        setIntervalId(id);
+    }
+
     function pauseTimer() {
         setIsRunning(false);
         clearInterval(intervalId);
@@ -80,7 +100,7 @@ function UserTimer(props) {
         <div style={styles.timerContainer}>
             <div style={styles.timer}>
                 <button onClick={() => decreaseTimer()}>&lt;</button>
-                <text style={styles.text}>{`${minutes}:${seconds}`}</text>
+                <span style={styles.text}>{`${minutes}:${seconds}`}</span>
                 <button onClick={() => increaseTimer()}>&gt;</button>
                 
             </div>

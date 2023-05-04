@@ -1,18 +1,36 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import MenuIcon from '../assets/menu-line.svg';
 
 import Menu from '../screens/Menu'
+import { auth } from "../firebaseConfig.js"
+import { database } from "../firebaseConfig.js"
+import { ref, child, get, set, onValue} from "firebase/database";
 
 function Layout(props) {
 
     const [menuVisible, setMenuVisible] = useState(false);
+    const [currGroupName, setCurrGroupName] = useState("")
+    
+
+    useEffect(() => {
+        const userId = auth.currentUser.uid
+        const userCurrGroupRef = ref(database, 'users/' + userId + '/currGroup');
+        onValue(userCurrGroupRef, (snapshot) => {
+            const currentGroup = snapshot.val();
+            const currGroupNameRef = ref(database, 'groups/' + currentGroup + '/name');
+            onValue(currGroupNameRef, (snapshot) => {
+              const currentGroupName = snapshot.val()
+              setCurrGroupName(currentGroupName);
+            })
+        });
+      }, []); 
 
     return(
         <div style={{...props.style, ...styles.container}}>
             <div style={styles.header}>
                 <img src={MenuIcon} style={styles.menuIcon} onClick={() => { setMenuVisible(!menuVisible); }}/>
-                <text style={styles.headerTitle}>CPP CS 4800 Study Room</text>
+                <span style={styles.headerTitle}>{currGroupName}</span>
             </div>
 
             {menuVisible && <Menu onExit={() => setMenuVisible(false)}/>}

@@ -8,7 +8,7 @@ import React from 'react';
 function GroupSearchResults(props) {
 
     return(
-        <text style={{color: 'black'}}>group search results screen</text>
+        <span style={{color: 'black'}}>group search results screen</span>
     );
 }
 

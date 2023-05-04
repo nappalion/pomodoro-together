@@ -2,7 +2,9 @@
 
 import * as React from 'react';
 import { initializeApp, getApps, getApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
 import { getDatabase } from "firebase/database";
+
 
 
 const firebaseConfig = {
@@ -27,6 +29,8 @@ if (getApps().length === 0) {
 // Initialize Realtime Database and get a reference to the service
 export const database = getDatabase(app);
 
+// Initialize Firebase Authentication and get a reference to the service
+export const auth = getAuth(app);
 
 // For more information on how to access Firebase in your project,
 // see the Firebase documentation: https://firebase.google.com/docs/web/setup#access-firebase

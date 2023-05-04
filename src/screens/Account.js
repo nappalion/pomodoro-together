@@ -8,7 +8,7 @@ import React from 'react';
 function Account(props) {
 
     return(
-        <text style={{color: 'black'}}>account screen</text>
+        <span style={{color: 'black'}}>account screen</span>
     );
 }
 

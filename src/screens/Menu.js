@@ -3,9 +3,10 @@ A menu component that displays buttons on the side of the screen (Groups, Create
 Also displays the user's name and profile picture.
 */
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Button from '../components/Button';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { auth } from "../firebaseConfig.js"
 
 import GroupsIcon from '../assets/group-fill.svg';
 import CreateGroupIcon from '../assets/user-add-fill.svg';
@@ -16,6 +17,7 @@ import LogoutIcon from '../assets/logout-box-line.svg';
 
 function Menu(props) {
   const navigate = useNavigate();
+
 
   const styles = {
     screen: {
@@ -40,6 +42,16 @@ function Menu(props) {
     },
   };
 
+  function logout() {
+    try {
+      auth.signOut();
+      navigate('/')
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
 
   return (
     <div style={styles.screen}>
@@ -49,7 +61,7 @@ function Menu(props) {
             <Button color='white' secondaryColor='#DADADA' fontColor="black" text="Analytics" onClick={() => navigate('/analytics')} icon={AnalyticsIcon} />
             <Button color='white' secondaryColor='#DADADA' fontColor="black" text="Account" onClick={() => navigate('/account')} icon={AccountIcon} />
             <Button color='white' secondaryColor='#DADADA' fontColor="black" text="Settings" onClick={() => navigate('/settings')} icon={SettingsIcon} />
-            <Button color='white' secondaryColor='#DADADA' fontColor="black" text="Logout" onClick={() => navigate('/')} icon={LogoutIcon} />
+            <Button color='white' secondaryColor='#DADADA' fontColor="black" text="Logout" onClick={() => logout()} icon={LogoutIcon} />
         </div>
         <div style={styles.transparent} onClick={() => props.onExit()}/>
     </div>

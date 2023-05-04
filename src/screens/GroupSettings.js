@@ -12,7 +12,7 @@ import React from 'react';
 function GroupSettings(props) {
 
     return(
-        <text style={{color: 'black'}}>group settings screen</text>
+        <span style={{color: 'black'}}>group settings screen</span>
     );
 }
 

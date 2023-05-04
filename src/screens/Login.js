@@ -5,52 +5,34 @@ import TextInput from '../components/TextInput';
 import { database } from "../firebaseConfig.js"
 import { ref, child, get, set} from "firebase/database";
 
+import { auth } from "../firebaseConfig.js"
+import { signInWithEmailAndPassword } from '@firebase/auth';
+
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
     const navigate = useNavigate();
     const [loginText, setLoginText] = useState("");
-    const [currUser, setCurrUser] = useState("")
-    const [username, setUsername] = useState("")
+    const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-
   
-    function login(username) {
-      console.log("Checking if " + username.toString() + " exists.")
-      if (username != "") {
-        return get(child(ref(database), `users/${username}`)).then((snapshot) => {
-          if (snapshot.exists()) {
-            console.log("User exists.");
-            if (snapshot.val().password != password) {
-                setLoginText("Invalid password.")
-                console.log("Invalid password.")
-                return false
-            } else {
-                setCurrUser(username);
-                navigate("/timer", {state: {currUser: username, timer: snapshot.val().timer}});
-                return true;
-            }
-          } else {
-            console.log("User does not exist.");
-            setLoginText("User does not exist.") 
-            return false;
-          }
-        }).catch((error) => {
-            console.error(error);
-            return false;
+    function login(email, password) {
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          navigate("/timer");
+        })
+        .catch((error) => {
+          const errorCode = error.code.toString();
+          const errorMessage = error.message.toString();
+          setLoginText(errorCode)
         });
-      }
-      else {
-        return;
-      }
-
-
     }
   
   
-    function handleChangeUsername(event) {
+    function handleChangeEmail(event) {
       setLoginText("");
-      setUsername(event.target.value);
+      setEmail(event.target.value);
     }
   
     function handleChangePassword(event) {
@@ -89,15 +71,15 @@ function Login() {
             <div style={styles.container}>
 
               <img src={logo} alt="Logo" style={styles.logo}></img>
-              <text style={{color: '#1C1C1C', fontSize: 13, marginTop: 5}}>{loginText}</text>
-              <TextInput placeholder="Username" value={username} onChangeText={handleChangeUsername} />
+              <span style={{color: '#1C1C1C', fontSize: 13, marginTop: 5}}>{loginText}</span>
+              <TextInput placeholder="Email" value={email} onChangeText={handleChangeEmail} />
               <TextInput placeholder="Password" value={password} onChangeText={handleChangePassword}/>
-              <text style={styles.textButton}>Forgot Password?</text>
-              <Button onClick={() => login(username)} style={{marginTop: 50}} text="Log In"/>
+              <span style={styles.textButton}>Forgot Password?</span>
+              <Button onClick={() => login(email, password)} style={{marginTop: 50}} text="Log In"/>
               
               <div>
-              <text style={styles.text}>Don't have an account?  </text>
-              <text style={styles.textButton} onClick={() => { navigate('/signup') }}>Sign Up</text>
+              <span style={styles.text}>Don't have an account?  </span>
+              <span style={styles.textButton} onClick={() => { navigate('/signup') }}>Sign Up</span>
               </div>
             </div>
           

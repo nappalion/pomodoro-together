@@ -8,7 +8,7 @@ import React from 'react';
 function CreateGroup(props) {
 
     return(
-        <text style={{color: 'black'}}>create group screen</text>
+        <span style={{color: 'black'}}>create group screen</span>
     );
 }
 
