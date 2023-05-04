@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 function TextInput(props) {
     const { placeholder, value, onChangeText } = props;
+    
 
     const styles = {
         '::placeholder': {
