@@ -1,7 +1,5 @@
 /*
-Contains a timer component for a user
-Holds the timer, username, and hours studied today
-Will be displayed with other users in a group
+Holds the timer component for the user
 */
 
 import React, {useState} from 'react';
@@ -59,7 +57,6 @@ function UserTimer(props) {
 
     function saveTime() {
         console.log('users/' + location.state.currUser + "/timer")
-        
         set(ref(database, 'users/' + location.state.currUser + "/timer"), timer);
     }
 

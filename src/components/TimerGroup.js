@@ -12,7 +12,8 @@ function TimerGroup(props) {
         container: {
             height: '100vh',
             backgroundColor: '#9EB3C2',
-            borderRadius: 16
+            borderRadius: 16,
+            overflowY: 'scroll'
         }
     }
 
