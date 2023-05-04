@@ -2,18 +2,17 @@ import React from 'react'
 import {
     Chart as ChartJS,
     LineElement,
-    TimeScale,
+    CategoryScale,
     LinearScale,
     PointElement,
     Tooltip,
     Legend
   } from 'chart.js'
-import 'chartjs-adapter-date-fns';
 import { Line } from 'react-chartjs-2';
 
 ChartJS.register(
     LineElement,
-    TimeScale,
+    CategoryScale,
     LinearScale,
     PointElement,
     Tooltip,
@@ -22,12 +21,6 @@ ChartJS.register(
 
   const options = {//chart options
     scales: {
-      x: {//tunes the labels on x axis
-        type: 'time',
-        time: {
-          unit: 'day'
-        }
-      },
       y: {
         beginAtZero: true //y axis starts at 0
       }

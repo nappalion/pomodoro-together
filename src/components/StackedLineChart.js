@@ -8,7 +8,7 @@ import {
     Tooltip,
     Legend
   } from 'chart.js'
-import 'chartjs-adapter-date-fns';
+//import 'chartjs-adapter-date-fns';
 import { Line } from 'react-chartjs-2';
 
 ChartJS.register(
