@@ -5,6 +5,7 @@ This is the place to create a group
 
 import React from 'react';
 import Layout from '../components/Layout';
+import AddGroupForm from '../components/AddGroupForm';
 
 function CreateGroup() {
 
@@ -40,9 +41,7 @@ function CreateGroup() {
 
         <div style={styles.container}>
             <div style={styles.leftSide}> 
-                <h1>
-                    
-                </h1>
+                <AddGroupForm />
             </div>
 
             <div style={styles.rightSide}>
