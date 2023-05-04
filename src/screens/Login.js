@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import logo from "../assets/logo.PNG"
+import logo1 from "../assets/logo1.PNG"
 import Button from '../components/Button';
 import TextInput from '../components/TextInput';
 import { database } from "../firebaseConfig.js"
@@ -48,7 +48,7 @@ function Login() {
         flexDirection: 'column',
         alignItems: 'center',
       },
-      logo: {
+      logo1: {
         width: 250
       },
       textButton: {
@@ -70,7 +70,7 @@ function Login() {
 
             <div style={styles.container}>
 
-              <img src={logo} alt="Logo" style={styles.logo}></img>
+              <img src={logo1} alt="logo1" style={styles.logo1}></img>
               <span style={{color: '#1C1C1C', fontSize: 13, marginTop: 5}}>{loginText}</span>
               <TextInput placeholder="Email" value={email} onChangeText={handleChangeEmail} />
               <TextInput placeholder="Password" value={password} onChangeText={handleChangePassword}/>
