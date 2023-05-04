@@ -48,6 +48,7 @@ function Groups(props) {
             const groups = snapshot.val();
             for (let groupKey in groups) {
                 const group = groups[groupKey];
+                group.groupKey = groupKey;
                 console.log(group);
                 if (group.users && userId in group.users && group != -1) {
                     setMyGroupsData((prevGroups) => [...prevGroups, group]);

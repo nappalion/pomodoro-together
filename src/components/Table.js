@@ -6,8 +6,15 @@ This is the place to create a table to hold rows
 import React from 'react';
 import GroupSettingsIcon from '../assets/settings-fill.svg'
 import RemoveGroupIcon from '../assets/delete-bin-fill.svg'
+import { useNavigate } from 'react-router-dom';
+
+import { database } from "../firebaseConfig.js"
+import { auth } from '../firebaseConfig.js';
+import { ref, child, get, set, onValue} from "firebase/database";
 
 function Table(props) {
+    const navigate = useNavigate();
+
     const {style, data, headerText } = props;
 
     const styles = {
@@ -44,8 +51,14 @@ function Table(props) {
     }
 
     data.map((item, index) => {
-        console.log(item.name)
+        console.log(item)
     })
+
+    function handleRowClick(groupId) {
+        const currUserId = auth.currentUser.uid;
+        set(ref(database, 'users/' + currUserId + "/currGroup/"), groupId);
+        navigate('/timer')
+    }
 
     return(
         <div style={style}>
@@ -62,7 +75,7 @@ function Table(props) {
                 </thead>
                 <tbody>
                     {data.map((item, index) => (
-                        <tr style={styles.row} key={index}>
+                        <tr onClick={()=> handleRowClick(item.groupKey)} style={styles.row} key={index}>
                             <td >{item.name}</td>
                             <td >{Object.keys(item.users).length} / 50</td>
                             <td>
