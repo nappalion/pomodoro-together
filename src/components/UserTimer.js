@@ -8,7 +8,6 @@ import { ref, child, get, set} from "firebase/database";
 import {useLocation, useNavigate} from 'react-router-dom';
 
 import { auth } from "../firebaseConfig.js"
-import { signInWithEmailAndPassword } from '@firebase/auth';
 
 import Button from './Button.js';
 
@@ -40,6 +39,7 @@ const styles = {
 
 function UserTimer(props) {
     const { currGroup } = props;
+    const userId = auth.currentUser.uid;
 
     const [timer, setTimer] = useState(60);
     const [isRunning, setIsRunning] = useState(false);
@@ -63,12 +63,46 @@ function UserTimer(props) {
         });
     }, [currGroup])
 
+    function getCurrentDate() {
+        const currentDate = new Date();
+        const year = currentDate.getFullYear();
+        const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+        const day = currentDate.getDate().toString().padStart(2, '0');
+        const formattedDate = `${year}-${month}-${day}`;
+        return formattedDate;
+    }
+
 
     function saveTime() {
         const userId = auth.currentUser.uid
-        console.log('groups/' + currGroup + "/users/" + userId)
+
+        const totalFocusTimeRef = ref(database, `users/${auth.currentUser.uid}/totalFocusTime`);
+        const focusTimeRef = ref(database, `users/${auth.currentUser.uid}/focusTime`);
+        const prevTimer = ref(database, `groups/${currGroup}/users/${auth.currentUser.uid}/timer`);
+        get(prevTimer).then((timerData) => {
+            get(totalFocusTimeRef).then((totalFocusData) => {
+                const currDate = getCurrentDate()
+                if (timerData.exists() && totalFocusData.exists()) {
+                    console.log((timerData.val() - timer) + totalFocusData.val())
+                    set(ref(database, 'users/' + userId + '/totalFocusTime/'), (timerData.val() - timer) + totalFocusData.val())
+                } else {
+                    console.log("Error.")
+                }
+
+                get(focusTimeRef).then((snapshot) => {
+                    const focusTimeData = snapshot.val();
+                    for (let dateKey in focusTimeData) {
+                        if (dateKey == currDate) {
+                            set(ref(database, 'users/' + userId + '/focusTime/' + dateKey), (timerData.val() - timer) + focusTimeData[dateKey])
+                        }
+                    }
+                });
+            });
+        });
         set(ref(database, 'groups/' + currGroup + "/users/" + auth.currentUser.uid + "/timer"), timer);
         set(ref(database, 'groups/' + currGroup + "/users/" + auth.currentUser.uid + "/isRunning"), false);
+
+        
     }
 
     function increaseTimer() {
@@ -83,7 +117,7 @@ function UserTimer(props) {
 
     function startTimer() {
         setIsRunning(true);
-        console.log('groups/' + currGroup + "/users/" + auth.currentUser.uid + "/isRunning")
+        // console.log('groups/' + currGroup + "/users/" + auth.currentUser.uid + "/isRunning")
         set(ref(database, 'groups/' + currGroup + "/users/" + auth.currentUser.uid + "/isRunning"), true);
         const id = setInterval(() => {
             if (timer > 0) {
