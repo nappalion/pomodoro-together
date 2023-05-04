@@ -11,7 +11,6 @@ import Account from './screens/Account';
 import Settings from './screens/Settings';
 import Signup from './screens/Signup';
 
-
 const styles={
   app: {
     backgroundColor: 'white',
