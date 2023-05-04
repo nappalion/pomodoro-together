@@ -13,18 +13,7 @@ function Login() {
     const [currUser, setCurrUser] = useState("")
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
-  
-    function createUser(username, password) {
-      setLoginText("");
-      console.log("Clicked!");
-      if (username != "" && password != "")  {
-        set(ref(database, `users/${username}`), {password: password, timer: 60});
-        setCurrUser(username);
-        navigate("/timer", {state: {currUser: currUser, timer: 60}});
-      } else {
-        setLoginText("Invalid username/password.");
-      }
-    }
+
   
     function login(username) {
       console.log("Checking if " + username.toString() + " exists.")

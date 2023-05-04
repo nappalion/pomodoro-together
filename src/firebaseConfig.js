@@ -6,14 +6,15 @@ import { getDatabase } from "firebase/database";
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAzIK4htX7XVtG_IjxTxXmmYeVRBewE__c",
-    authDomain: "pomodorotogether-a225c.firebaseapp.com",
-    projectId: "pomodorotogether-a225c",
-    storageBucket: "pomodorotogether-a225c.appspot.com",
-    messagingSenderId: "599168027054",
-    appId: "1:599168027054:web:33551689a1aade1850603f",
-    measurementId: "G-R3R18B5GD9"
-  };
+  apiKey: "AIzaSyC4IF6cz_1yCzD0-cPITzE1_pn_qZXkx00",
+  authDomain: "pomodorotogether-9cd25.firebaseapp.com",
+  databaseURL: "https://pomodorotogether-9cd25-default-rtdb.firebaseio.com",
+  projectId: "pomodorotogether-9cd25",
+  storageBucket: "pomodorotogether-9cd25.appspot.com",
+  messagingSenderId: "354922231576",
+  appId: "1:354922231576:web:026ef87fca55927351906d",
+  measurementId: "G-7L7GD1MP3X"
+};
 
 // Initialize Firebase
 let app;
