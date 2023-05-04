@@ -10,6 +10,7 @@ import React, {useState, useEffect} from 'react';
 import Layout from '../components/Layout';
 
 import Table from '../components/Table';
+import SearchBar from '../components/SearchBar';
 
 import { database } from "../firebaseConfig.js"
 import { auth } from '../firebaseConfig.js';
@@ -63,6 +64,7 @@ function Groups(props) {
     return(
         <Layout header="Groups Screen" style={styles.screen}>
             <div style={{...styles.screen, ...styles.main}}>
+                <SearchBar />
                 <Table style={styles.container} headerText="My Groups" data={myGroupsData}/>
                 <Table style={styles.container} headerText="Discover" data={discoverData} noIcons={true}/>
             </div>

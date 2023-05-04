@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { database } from "../firebaseConfig.js"
 import { auth } from '../firebaseConfig.js';
-import { ref, child, get, set, onValue} from "firebase/database";
+import { ref, child, get, set, remove} from "firebase/database";
 
 function Table(props) {
     const navigate = useNavigate();
@@ -34,8 +34,6 @@ function Table(props) {
         },
         icon: {
             width: 25,
-            marginLeft: 10,
-            marginRight: 10,
             
         },
         header: {
@@ -60,6 +58,17 @@ function Table(props) {
         navigate('/timer')
     }
 
+    function handleDeleteItem(groupId) {
+        const groupRef = ref(database, 'groups/' + groupId)
+        remove(groupRef)
+            .then(() => {
+                console.log('Item deleted successfully.');
+            })
+            .catch((error) => {
+                console.log('Error deleting item:', error);
+            })
+    }
+
     return(
         <div style={style}>
             <span style={styles.categoryText}>{headerText}</span>
@@ -75,14 +84,14 @@ function Table(props) {
                 </thead>
                 <tbody>
                     {data.map((item, index) => (
-                        <tr onClick={()=> handleRowClick(item.groupKey)} style={styles.row} key={index}>
-                            <td >{item.name}</td>
-                            <td >{Object.keys(item.users).length} / {item.roomCapacity}</td>
-                            <td>
-                                {!noIcons && <img style={styles.icon} src={GroupSettingsIcon} />}
+                        <tr style={styles.row} key={index}>
+                            <td onClick={()=> handleRowClick(item.groupKey)} >{item.name}</td>
+                            <td onClick={()=> handleRowClick(item.groupKey)} >{Object.keys(item.users).length} / {item.roomCapacity}</td>
+                            <td >
+                                {!noIcons && <img style={styles.icon} src={GroupSettingsIcon} onClick={() => navigate('/group-settings')}/>}
                             </td>
                             <td>
-                                { !noIcons && <img style={styles.icon} src={RemoveGroupIcon} />}
+                                { !noIcons && <img style={styles.icon} src={RemoveGroupIcon} onClick={() => handleDeleteItem(item.groupKey)}/>}
                             </td>
                         </tr>
                     ))}

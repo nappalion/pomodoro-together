@@ -78,8 +78,8 @@ function Login() {
               <Button onClick={() => login(email, password)} style={{marginTop: 50}} text="Log In"/>
               
               <div>
-              <span style={styles.text}>Don't have an account?  </span>
-              <span style={styles.textButton} onClick={() => { navigate('/signup') }}>Sign Up</span>
+                <span style={styles.text}>Don't have an account?  </span>
+                <span style={styles.textButton} onClick={() => { navigate('/signup') }}>Sign Up</span>
               </div>
             </div>
           

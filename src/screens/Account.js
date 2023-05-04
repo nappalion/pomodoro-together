@@ -36,35 +36,35 @@ function Account(props) {
     }
 
     return(
-        <Layout style={styles.screen}>
+      <Layout style={styles.screen}>
 
 
         <div style={styles.container}>
-        <div className="wrapper">
-        <h1>
-            <span style={{ fontWeight: 'bold' }}>Account Information</span>
-        </h1>
-      
-      <form>
-        <fieldset>
-          <label>
-            <p style={{ color: 'blue' }}><span style={{ fontWeight: 'bold' }}>Email Address</span></p>
-            <div color='blue'>jack@gmail.com</div>
-          </label>
-        </fieldset>
-        <fieldset>
-         <label>
-           <p><span style={{ fontWeight: 'bold' }}>Reset Password</span></p>
-           
-         </label>
+          <div className="wrapper">
+            <h1>
+                <span style={{ fontWeight: 'bold' }}>Account Information</span>
+            </h1>
+          
+            <form>
+              <fieldset>
+                <label>
+                  <p style={{ color: 'blue' }}><span style={{ fontWeight: 'bold' }}>Email Address</span></p>
+                  <div color='blue'>jack@gmail.com</div>
+                </label>
+              </fieldset>
 
-          <button> Reset </button>
+              <fieldset>
+                <label>
+                  <p><span style={{ fontWeight: 'bold' }}>Reset Password</span></p>
+                </label>
 
-       </fieldset>
-        
-        <div><Button text = 'DELETE ACCOUNT'/></div>
-      </form>
-    </div>
+                <button> Reset </button>
+              </fieldset>
+
+              <div><Button text = 'DELETE ACCOUNT'/></div>
+            </form>
+            
+          </div>
         </div>
 
     </Layout>

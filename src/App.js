@@ -10,6 +10,7 @@ import Analytics from './screens/Analytics';
 import Account from './screens/Account';
 import Settings from './screens/Settings';
 import Signup from './screens/Signup';
+import GroupSettings from './screens/GroupSettings';
 
 const styles={
   app: {
@@ -36,6 +37,7 @@ function App() {
             <Route path="/account" element={<Account/>}/>
             <Route path="/settings" element={<Settings/>}/>
             <Route path="/signup" element={<Signup/>}/>
+            <Route path="/group-settings" element={<GroupSettings/>}/>
           </Routes>
         </BrowserRouter>
       </header>
