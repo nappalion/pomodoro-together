@@ -23,6 +23,7 @@ function Timer() {
     const userId = auth.currentUser.uid;
 
     const [currGroup, setCurrGroup] = useState("");
+    const [currGroupUsers, setCurrGroupUsers] = useState();
 
     const styles = {
         screen: {
@@ -51,10 +52,31 @@ function Timer() {
     }
 
     useEffect(() => {
-        const userCurrGroupRef = ref(database, 'users/' + userId + '/currGroup');
-        onValue(userCurrGroupRef, (snapshot) => {
+        // Get group that signed in user is in
+        const userRef = ref(database, 'users/' + userId + '/currGroup');
+        onValue(userRef, (snapshot) => {
             const currentGroup = snapshot.val();
             setCurrGroup(currentGroup);
+
+            // Get list of users in that group
+            const currGroupUsersRef = ref(database, 'groups/' + currentGroup + '/users')
+            onValue(currGroupUsersRef, (snapshot) => {
+                const users = snapshot.val();
+                let updatedUsers = {};
+                for (let userKey in users) {
+                    if (userKey != userId) {
+                        updatedUsers[userKey] = users[userKey];
+                        
+                        // Get username of each user in group's users
+                        const currUserInGroupRef = ref(database, 'users/' + userKey + '/username')
+                        onValue(currUserInGroupRef, (snapshot) => {
+                            const userInGroupUsername = snapshot.val()
+                            updatedUsers[userKey].username = userInGroupUsername;
+                        })
+                    }
+                }
+                setCurrGroupUsers(updatedUsers);
+            })
         });
     }, []); 
 
@@ -72,7 +94,7 @@ function Timer() {
                 </div>
 
                 <div style={styles.rightSide}>
-                    <TimerGroup />
+                    <TimerGroup users={currGroupUsers}/>
                 </div>
                 
             </div>

@@ -5,8 +5,10 @@ Should have the group name at the top and then display a grid view of multiple "
 */
 
 import React from 'react';
+import OtherTimer from './OtherTimer';
 
 function TimerGroup(props) {
+    const {users} = props;
 
     const styles = {
         container: {
@@ -17,9 +19,16 @@ function TimerGroup(props) {
         }
     }
 
+
+
     return(
         <div style={styles.container}>
-            
+            {users &&  
+                Object.keys(users).map(userKey => (
+                    <OtherTimer key={userKey} username={users[userKey].username} time={users[userKey].timer}/>
+                ))
+            }
+
         </div>
     );
 }
