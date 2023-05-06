@@ -10,6 +10,7 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import { auth } from "../firebaseConfig.js"
 
 import Button from './Button.js';
+import CircleTimer from './CircleTimer.js';
 
 const styles = {
     text: {
@@ -32,7 +33,7 @@ const styles = {
         alignItems: 'center',
         
     },
-    pausePlayButton: {
+    iconButton: {
         width: 60
     }
 }
@@ -42,11 +43,14 @@ function UserTimer(props) {
     const userId = auth.currentUser.uid;
 
     const [timer, setTimer] = useState(60);
+    const [maxTime, setMaxTime] = useState(60);
     const [isRunning, setIsRunning] = useState(false);
     const [intervalId, setIntervalId] = useState(null);
 
-    const minutes = Math.floor(timer / 60);
-    const seconds = Math.round(timer % 60).toString().padStart(2, '0');  
+
+    useEffect(() => {
+        setTimer(maxTime);
+    }, [maxTime]);
 
     useEffect(() => {
         const userId = auth.currentUser.uid
@@ -61,6 +65,16 @@ function UserTimer(props) {
               setTimer(60);
             }
         });
+        const maxTimeRef = ref(database, `groups/${currGroup}/users/${userId}/maxTime`);
+        get(maxTimeRef).then((snapshot) => {
+            if (snapshot.exists()) {
+                console.log(snapshot.val())
+              setMaxTime(snapshot.val());
+            } else {
+              // If the timer value doesn't exist in the database, set it to 60
+              setMaxTime(60);
+            }
+        });
     }, [currGroup])
 
     function getCurrentDate() {
@@ -73,21 +87,33 @@ function UserTimer(props) {
     }
 
 
+
+
     function saveTime() {
         const userId = auth.currentUser.uid
+        const currDate = getCurrentDate()
 
         const totalFocusTimeRef = ref(database, `users/${auth.currentUser.uid}/totalFocusTime`);
         const focusTimeRef = ref(database, `users/${auth.currentUser.uid}/focusTime`);
-        const prevTimer = ref(database, `groups/${currGroup}/users/${auth.currentUser.uid}/timer`);
-        get(prevTimer).then((timerData) => {
+        const prevTimerRef = ref(database, `groups/${currGroup}/users/${auth.currentUser.uid}/timer`);
+        const currentDayFocusTimeRef = ref(database, `users/${auth.currentUser.uid}/focusTime/${currDate}`);
+        get(prevTimerRef).then((timerData) => {
             get(totalFocusTimeRef).then((totalFocusData) => {
-                const currDate = getCurrentDate()
                 if (timerData.exists() && totalFocusData.exists()) {
                     console.log((timerData.val() - timer) + totalFocusData.val())
-                    set(ref(database, 'users/' + userId + '/totalFocusTime/'), (timerData.val() - timer) + totalFocusData.val())
+                    set(ref(database, 'users/' + userId + '/totalFocusTime/'), (timerData.val() - timer) + totalFocusData.val());
                 } else {
                     console.log("Error.")
                 }
+
+                get(currentDayFocusTimeRef).then((snapshot) => {
+                    const currDayFocusTime = snapshot.val();
+                    if (currDayFocusTime === null) {
+                        set(currentDayFocusTimeRef, (timerData.val() - timer));
+                    } else {
+                        set(currentDayFocusTimeRef, currDayFocusTime + (timerData.val() - timer));
+                    }
+                })
 
                 get(focusTimeRef).then((snapshot) => {
                     const focusTimeData = snapshot.val();
@@ -100,18 +126,19 @@ function UserTimer(props) {
             });
         });
         set(ref(database, 'groups/' + currGroup + "/users/" + auth.currentUser.uid + "/timer"), timer);
+        set(ref(database, 'groups/' + currGroup + "/users/" + auth.currentUser.uid + "/maxTime"), maxTime);
         set(ref(database, 'groups/' + currGroup + "/users/" + auth.currentUser.uid + "/isRunning"), false);
 
         
     }
 
-    function increaseTimer() {
-        setTimer(timer => timer + 60);
+    function increaseMaxTime() {
+        setMaxTime(maxTime => maxTime + 60);
     }
 
-    function decreaseTimer() {
-        if (timer > 60) {
-            setTimer(timer => timer - 60);
+    function decreaseMaxTime() {
+        if (maxTime > 60) {
+            setMaxTime(maxTime => maxTime - 60);
         }
     }
 
@@ -130,19 +157,24 @@ function UserTimer(props) {
     function pauseTimer() {
         setIsRunning(false);
         clearInterval(intervalId);
-        saveTime()
+        saveTime();
+    }
+
+    function stopTimer() {
+        setTimer(maxTime);
     }
 
     return(
         <div style={styles.timerContainer}>
             <div style={styles.timer}>
-                <button onClick={() => decreaseTimer()}>&lt;</button>
-                <span style={styles.text}>{`${minutes}:${seconds}`}</span>
-                <button onClick={() => increaseTimer()}>&gt;</button>
-                
+                {!isRunning && <button onClick={() => {decreaseMaxTime()}}>&lt;</button>}
+                <CircleTimer time={timer} maxTime={maxTime} timerText="Focus"/>
+                {!isRunning && <button onClick={() => {increaseMaxTime()}}>&gt;</button>}
             </div>
+
             
-            <img style={styles.pausePlayButton} src={isRunning ? require('../assets/pause-button.png') : require('../assets/play-button.png')} onClick={() => {isRunning ? pauseTimer() : startTimer()}}/>
+            <img style={styles.iconButton} src={isRunning ? require('../assets/pause-button.png') : require('../assets/play-button.png')} onClick={() => {isRunning ? pauseTimer() : startTimer()}}/>
+            <img style={styles.iconButton} src={require('../assets/stop-button.png')} onClick={stopTimer}/>
         </div>
     );
 }

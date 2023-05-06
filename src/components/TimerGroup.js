@@ -23,7 +23,7 @@ function TimerGroup(props) {
         <div style={styles.container}>
             {users &&  
                 Object.keys(users).map(userKey => (
-                    <OtherTimer key={userKey} userId={userKey} currGroup={currGroup} username={users[userKey].username} time={users[userKey].timer}/>
+                    <OtherTimer key={userKey} userId={userKey} currGroup={currGroup} username={users[userKey].username} time={users[userKey].timer} hoursToday={users[userKey].hoursFocused}/>
                 ))
             }
 

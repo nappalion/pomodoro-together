@@ -26,12 +26,10 @@ function Settings(props) {
     }
 
     return(
-        <Layout header="Settings" style={styles.screen}>
+        <Layout header="Account Settings" style={styles.screen}>
 
 
             <div style={styles.container}>
-                
-                <h1>Account Settings</h1>
                 
                 <form>
                     <fieldset>

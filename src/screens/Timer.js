@@ -51,6 +51,15 @@ function Timer() {
 
     }
 
+    function getCurrentDate() {
+        const currentDate = new Date();
+        const year = currentDate.getFullYear();
+        const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+        const day = currentDate.getDate().toString().padStart(2, '0');
+        const formattedDate = `${year}-${month}-${day}`;
+        return formattedDate;
+    }
+
     useEffect(() => {
         // Get group that signed in user is in
         const userRef = ref(database, 'users/' + userId + '/currGroup');
@@ -68,21 +77,25 @@ function Timer() {
                         updatedUsers[userKey] = users[userKey];
                         
                         // Get username of each user in group's users
-                        const currUserInGroupRef = ref(database, 'users/' + userKey + '/username')
-                        onValue(currUserInGroupRef, (snapshot) => {
-                            const userInGroupUsername = snapshot.val()
-                            updatedUsers[userKey].username = userInGroupUsername;
+                        const currUserRef = ref(database, 'users/' + userKey)
+                        onValue(currUserRef, (snapshot) => {
+                            const user = snapshot.val()
+                            updatedUsers[userKey].username = user.username;
+
+                            const currentDate = getCurrentDate()
+                            if (user.focusTime && user.focusTime[currentDate]) {
+                                updatedUsers[userKey].hoursFocused = user.focusTime[currentDate]
+                            } else {
+                                updatedUsers[userKey].hoursFocused = 0
+                            }
                         })
+
                     }
                 }
                 setCurrGroupUsers(updatedUsers);
             })
         });
     }, []); 
-
-    onValue(ref(database, 'groups/'), (snapshot) => {
-        console.log("hello")
-    })
 
 
     return(

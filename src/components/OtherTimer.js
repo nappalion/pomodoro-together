@@ -10,15 +10,15 @@ Will be displayed with other users in a group
 import React, {useEffect, useState} from 'react';
 import { database } from "../firebaseConfig.js"
 import { ref, child, get, set, onValue} from "firebase/database";
+import CircleTimer from './CircleTimer.js';
 
 function OtherTimer(props) {
-    const {userId, username, time, currGroup} = props;
+    const {userId, username, time, currGroup, hoursToday} = props;
     const [timer, setTimer] = useState(time);
+    const [maxTime, setMaxTime] = useState(60);
     const [isRunning, setIsRunning] = useState(false);
     const [intervalId, setIntervalId] = useState(null);
     
-    const minutes = Math.floor(timer / 60);
-    const seconds = Math.round(timer % 60).toString().padStart(2, '0');  
 
     function startTimer() {
         if (isRunning) {
@@ -39,8 +39,8 @@ function OtherTimer(props) {
 
     const styles = {
         container: {
-            width: 200,
-            height: 200,
+            width: 150,
+            height: 'min-content',
             display: 'flex',
             flexDirection: 'column',
             backgroundColor: 'white',
@@ -48,11 +48,22 @@ function OtherTimer(props) {
             justifyContent: 'center',
             color: 'black',
             margin: 10,
+            padding: 10,
         },
         text: {
             color: '#1C1C1C',
             fontSize: 60,
+            padding: 0
         },
+        username: {
+            color: '#1C1C1C',
+            fontWeight: 'bold',
+            fontSize: 25,
+        },
+        hoursToday: {
+            color: '#1C1C1C',
+            fontSize: 15
+        }
     }
 
     useEffect(() => {
@@ -61,6 +72,13 @@ function OtherTimer(props) {
         onValue(userTimerRef, (snapshot) => {
             const userTimer = snapshot.val();
             setTimer(userTimer || 0);
+        });
+
+        // Listen for changes to the timer value of the user
+        const userMaxTimeRef = ref(database, `groups/${currGroup}/users/${userId}/maxTime`);
+        onValue(userMaxTimeRef, (snapshot) => {
+            const maxTime = snapshot.val();
+            setMaxTime(maxTime || 0);
         });
 
         // Listen for changes to the isRunning value of the user
@@ -80,8 +98,9 @@ function OtherTimer(props) {
 
     return(
         <div style={styles.container}>
-            <span style={styles.text}>{`${minutes}:${seconds}`}</span>
-            <span>{username}</span>
+            <CircleTimer time={timer} maxTime={maxTime}/>
+            <span style={styles.username}>{username}</span>
+            <span style={styles.hoursToday}>{hoursToday} hours today</span>
         </div>
     );
 }
