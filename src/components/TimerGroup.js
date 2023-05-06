@@ -15,6 +15,8 @@ function TimerGroup(props) {
     const {users, currGroup} = props;
     const [currGroupName, setCurrGroupName] = useState("");
     const [search, setSearch] = useState("");
+    const [filteredUsers, setFilteredUsers] = useState(users);
+
     
     useEffect(() => {
         const userId = auth.currentUser.uid
@@ -29,11 +31,15 @@ function TimerGroup(props) {
         });
     }, []); 
 
+    useEffect(() => {
+        setFilteredUsers(users);
+    }, [users])
+
     const styles = {
         container: {
             height: '100vh',
-            backgroundColor: '#9EB3C2',
             borderRadius: 16,
+            backgroundColor: '#9EB3C2',
         },
         header: {
             backgroundColor: '#21295C',
@@ -57,13 +63,33 @@ function TimerGroup(props) {
         },
         timerGroup: {
             width: '100%',
-            height: 'min-content',
+            maxHeight: 'calc(100vh - 260px)',
             overflowY: 'scroll',
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
             gridAutoFlow: 'dense',
             gap: 10,
             padding: 20,
+            backgroundColor: '#9EB3C2',
+            
+        }
+    }
+
+    function handleSearch(event) {
+        setSearch(event.target.value);
+        const searchValue = event.target.value.toLowerCase();
+        const filtered = {};
+
+        if (search === "") {
+            setFilteredUsers(users);
+        } else {
+            Object.keys(users).forEach(key => {
+                const user = users[key];
+                if (user.username.toLowerCase().includes(searchValue)) {
+                    filtered[key] = user;
+                }
+            })
+            setFilteredUsers(filtered);
         }
     }
 
@@ -81,11 +107,11 @@ function TimerGroup(props) {
                     </span>
                 }
 
-                <TextInput style={styles.search} placeholder={"Search"}/>
+                <TextInput style={styles.search} placeholder={"Search"} value={search} onChangeText={handleSearch}/>
             </div>
             <div style={styles.timerGroup}>
-                {users &&  
-                    Object.keys(users).map(userKey => (
+                { filteredUsers && users &&
+                    Object.keys(filteredUsers ? filteredUsers : users).map(userKey => (
                         <OtherTimer key={userKey} userId={userKey} currGroup={currGroup} username={users[userKey].username} time={users[userKey].timer} hoursToday={users[userKey].hoursFocused}/>
                     ))
                 }

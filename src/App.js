@@ -11,6 +11,7 @@ import Account from './screens/Account';
 import Settings from './screens/Settings';
 import Signup from './screens/Signup';
 import GroupSettings from './screens/GroupSettings';
+import GroupSearchResults from './screens/GroupSearchResults';
 
 const styles={
   app: {
@@ -38,6 +39,7 @@ function App() {
             <Route path="/settings" element={<Settings/>}/>
             <Route path="/signup" element={<Signup/>}/>
             <Route path="/group-settings" element={<GroupSettings/>}/>
+            <Route path="/group-search-results" element={<GroupSearchResults/>}/>
           </Routes>
         </BrowserRouter>
       </header>

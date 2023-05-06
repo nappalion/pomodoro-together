@@ -28,10 +28,12 @@ function Timer() {
 
     const styles = {
         screen: {
+            height: '100vh',
             width: '100%',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            overflow: 'hidden'
         },
         leftSide: {
             flex: 2,
@@ -97,6 +99,7 @@ function Timer() {
             })
         });
     }, []); 
+    
 
 
     return(

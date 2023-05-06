@@ -12,6 +12,9 @@ import { auth } from "../firebaseConfig.js"
 import Button from './Button.js';
 import CircleTimer from './CircleTimer.js';
 
+import LeftArrow from '../assets/arrow-left-fill.svg';
+import RightArrow from '../assets/arrow-right-fill.svg'
+
 const styles = {
     text: {
         color: '#1C1C1C',
@@ -33,7 +36,7 @@ const styles = {
     },
     iconButton: {
         width: 60
-    }
+    },
 }
 
 function UserTimer(props) {
@@ -171,9 +174,9 @@ function UserTimer(props) {
         <div style={styles.timerContainer}>
             {!isJoined && <span style={styles.text}>Press play to join this group.</span>}
             <div style={styles.timer}>
-                {!isRunning && <button onClick={() => {decreaseMaxTime()}}>&lt;</button>}
+                {!isRunning && <img style={styles.iconButton} src={LeftArrow} onClick={() => {decreaseMaxTime()}}/>}
                 <CircleTimer time={timer} maxTime={maxTime} timerText="Focus"/>
-                {!isRunning && <button onClick={() => {increaseMaxTime()}}>&gt;</button>}
+                {!isRunning && <img style={styles.iconButton} src={RightArrow} onClick={() => {increaseMaxTime()}}/>}
             </div>
 
             

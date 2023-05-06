@@ -10,14 +10,17 @@ import React, {useState, useEffect} from 'react';
 import Layout from '../components/Layout';
 
 import Table from '../components/Table';
-import SearchBar from '../components/SearchBar';
 
 import { database } from "../firebaseConfig.js"
 import { auth } from '../firebaseConfig.js';
 import { ref, child, get, set, onValue} from "firebase/database";
 
+import TextInput from '../components/TextInput';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 
 function Groups(props) {
+    const navigate = useNavigate();
 
     const [myGroupsData, setMyGroupsData] = useState([]);
     const [discoverData, setDiscoverData] = useState([]);
@@ -62,12 +65,37 @@ function Groups(props) {
         });
     }, []); 
     
+    function handleSearch(event) {
+        const searchValue = event.target.value.toLowerCase().replace(/\s/g, '');
+        const filteredGroupData = [];
 
+
+        for (let i = 0; i < myGroupsData.length; i++) {
+            const group = myGroupsData[i];
+            const groupName = group.name.toLowerCase().replace(/\s/g, '');
+            if (groupName.includes(searchValue)) {
+                filteredGroupData.push(group);
+            }
+        }
+
+        for (let i = 0; i < discoverData.length; i++) {
+            const group = discoverData[i];
+            const groupName = group.name.toLowerCase().replace(/\s/g, '');
+            if (groupName.includes(searchValue)) {
+                filteredGroupData.push(group);
+            }
+        }
+        
+
+        console.log("Filtered Group Data: " + filteredGroupData);
+
+        navigate('/group-search-results', {state: {search: event.target.value, groupData: filteredGroupData}})
+    }
 
     return(
         <Layout header="Groups Screen" style={styles.screen}>
             <div style={{...styles.screen, ...styles.main}}>
-                <SearchBar />
+                <TextInput style={styles.search} placeholder={"Search"} onSubmit={handleSearch}/>
                 <Table style={styles.container} headerText="My Groups" data={myGroupsData}/>
                 <Table style={styles.container} headerText="Discover" data={discoverData} noIcons={true}/>
             </div>

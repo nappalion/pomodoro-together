@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 
 function TextInput(props) {
-    const { placeholder, value, onChangeText, label, name} = props;
-    
+    const { placeholder, value, onChangeText, label, name, onSubmit} = props;
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            onSubmit(event);
+        }
+    }
 
     const styles = {
         container: {
@@ -23,7 +28,6 @@ function TextInput(props) {
             '::placeholder': {
                 color: '#949494'
             },
-            width: '90%',
             padding: 20,
             backgroundColor: '#F6F6F6',
             border: '2px solid #DADADA',
@@ -42,6 +46,7 @@ function TextInput(props) {
                 style={styles.textInput}
                 placeholder={placeholder}
                 onChange={onChangeText}
+                onKeyDown={handleKeyDown}
             />
         </div>
     );
