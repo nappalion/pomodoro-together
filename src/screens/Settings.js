@@ -37,6 +37,7 @@ function Settings(props) {
                     <fieldset>
                         <label>
                             <div>Display Name</div>
+                            <TextInput name="name" label="Username" placeholder="Please enter a username..."/>
                             <input name="name" />
                             <button>Add Alias</button>
                         </label>

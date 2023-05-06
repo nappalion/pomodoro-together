@@ -72,9 +72,9 @@ function Signup(props) {
     return(
         <div style={styles.container}>
             <text style={{color: '#1C1C1C', fontSize: 13, marginTop: 5}}>{loginText}</text>
-            <TextInput placeholder="Username" value={username} onChangeText={handleChangeUsername} />
-            <TextInput placeholder="Email" value={email} onChangeText={handleChangeEmail} />
-            <TextInput placeholder="Password" value={password} onChangeText={handleChangePassword}/>
+            <TextInput label="Username" placeholder="Please enter a username..." value={username} onChangeText={handleChangeUsername} />
+            <TextInput label="Email" placeholder="Please enter a username..." value={email} onChangeText={handleChangeEmail} />
+            <TextInput label="Password" placeholder="Please enter a password..." value={password} onChangeText={handleChangePassword}/>
             <Button onClick={() => createUser(email, password, username)} style={{marginTop: 50}} text="Sign Up"/>
         </div>
     );

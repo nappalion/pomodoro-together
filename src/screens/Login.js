@@ -9,6 +9,7 @@ import { auth } from "../firebaseConfig.js"
 import { signInWithEmailAndPassword } from '@firebase/auth';
 
 import { useNavigate } from 'react-router-dom';
+import TextButton from '../components/TextButton';
 
 function Login() {
     const navigate = useNavigate();
@@ -51,18 +52,12 @@ function Login() {
       logo1: {
         width: 250
       },
-      textButton: {
-        color: '#065A82',
-        fontSize: 13,
-        fontWeight: 'bold',
-        alignSelf: 'flex-end',
-        marginTop: 5
-      },
       text: {
         color: '#1C1C1C',
         fontSize: 13,
         alignSelf: 'flex-end',
-        marginTop: 5
+        marginTop: 5,
+        paddingRight: 5
       }
     }
 
@@ -72,14 +67,14 @@ function Login() {
 
               <img src={logo1} alt="logo1" style={styles.logo1}></img>
               <span style={{color: '#1C1C1C', fontSize: 13, marginTop: 5}}>{loginText}</span>
-              <TextInput placeholder="Email" value={email} onChangeText={handleChangeEmail} />
-              <TextInput placeholder="Password" value={password} onChangeText={handleChangePassword}/>
-              <span style={styles.textButton}>Forgot Password?</span>
+              <TextInput label="Email" placeholder="Enter your email..." value={email} onChangeText={handleChangeEmail} />
+              <TextInput label="Password" placeholder="Enter your password..." value={password} onChangeText={handleChangePassword}/>
+              <TextButton onClick={() => { navigate('/') }} text="Forgot Password?"/>
               <Button onClick={() => login(email, password)} style={{marginTop: 50}} text="Log In"/>
               
-              <div>
-                <span style={styles.text}>Don't have an account?  </span>
-                <span style={styles.textButton} onClick={() => { navigate('/signup') }}>Sign Up</span>
+              <div style={{ display: 'flex' }}>
+                <span style={styles.text}>Don't have an account?</span>
+                <TextButton onClick={() => { navigate('/signup') }} text="Sign Up."/>
               </div>
             </div>
           

@@ -6,6 +6,7 @@ import { ref, child, get, set, push} from "firebase/database";
 import { auth } from "../firebaseConfig.js";
 
 import { useNavigate } from 'react-router-dom';
+import TextInput from "./TextInput.js";
 
 const formReducer = (state, event) => {
     if(event.reset) {
@@ -70,10 +71,7 @@ const AddGroupForm = () => {
       <span style={{color: '#1C1C1C', fontSize: 13, marginTop: 5}}>{createText}</span>
       <form>
         <fieldset>
-          <label>
-            <p>Name of New Group</p>
-            <input name="name" value={groupName} onChange={handleChangeGroupName}/>
-          </label>
+            <TextInput name="groupname" label="Group Name" placeholder="Please enter a group name..." value={groupName} onChangeText={handleChangeGroupName}/>
         </fieldset>
         <fieldset>
          <label>
