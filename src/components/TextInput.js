@@ -28,6 +28,7 @@ function TextInput(props) {
             backgroundColor: '#F6F6F6',
             border: '2px solid #DADADA',
             borderRadius: 16,
+            fontSize: 18,
         }
         
     }

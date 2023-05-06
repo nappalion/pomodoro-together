@@ -5,7 +5,7 @@ Special Div that you can hover over and select to expand.
 import React, {useState, useEffect, useRef} from 'react';
 
 function HoverContainer(props) {
-    const {width, height} = props;
+    const {width, height, style} = props;
 
     const [isHover, setIsHover] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
@@ -38,6 +38,8 @@ function HoverContainer(props) {
             height: '80vh',
             zIndex: 1000,
             display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
             alignItems: 'center',
             backgroundColor: 'white'
         },
@@ -73,6 +75,8 @@ function HoverContainer(props) {
           document.removeEventListener('click', handleClickOutside);
         };
       }, [containerRef]);
+
+      
     
 
     return(
@@ -81,7 +85,9 @@ function HoverContainer(props) {
                 style={{
                     ...styles.main, 
                     ...(isHover && !isExpanded ? styles.hoverOn : styles.hoverOff),
-                    ...(isExpanded ? styles.expanded : {}),}} 
+                    ...(isExpanded ? styles.expanded : {}),
+                    ...(!isExpanded ? props.style : {})
+                }} 
                 onMouseEnter={() => setIsHover(true)} 
                 onMouseLeave={() => setIsHover(false)}
                 onClick={handleClick}

@@ -38,7 +38,7 @@ function Menu(props) {
     },
     transparent: {
         flex: 5,
-        opacity: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
   };
 

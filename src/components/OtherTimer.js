@@ -11,6 +11,7 @@ import React, {useEffect, useState} from 'react';
 import { database } from "../firebaseConfig.js"
 import { ref, child, get, set, onValue} from "firebase/database";
 import CircleTimer from './CircleTimer.js';
+import HoverContainer from './HoverContainer.js';
 
 function OtherTimer(props) {
     const {userId, username, time, currGroup, hoursToday} = props;
@@ -97,11 +98,13 @@ function OtherTimer(props) {
     }, [currGroup, userId, isRunning]);
 
     return(
-        <div style={styles.container}>
+
+        <HoverContainer style={styles.container}>
             <CircleTimer time={timer} maxTime={maxTime}/>
             <span style={styles.username}>{username}</span>
             <span style={styles.hoursToday}>{hoursToday} hours today</span>
-        </div>
+        </HoverContainer>
+
     );
 }
 
