@@ -41,24 +41,27 @@ function Groups(props) {
     }
 
     useEffect(() => {
-        setMyGroupsData([]);
-        setDiscoverData([]);
         const userId = auth.currentUser.uid
         const groupsRef = ref(database, 'groups/');
         onValue(groupsRef, (snapshot) => {
             const groups = snapshot.val();
+            let myGroups = [];
+            let discoverGroups = [];
             for (let groupKey in groups) {
                 const group = groups[groupKey];
                 group.groupKey = groupKey;
                 console.log(group);
                 if (group.users && userId in group.users && group != -1) {
-                    setMyGroupsData((prevGroups) => [...prevGroups, group]);
+                    myGroups.push(group);
                 } else if (group.users && !(userId in group.users) && group != -1) {
-                    setDiscoverData((prevGroups) => [...prevGroups, group]);
+                    discoverGroups.push(group);
                 }
             }
+            setMyGroupsData(myGroups);
+            setDiscoverData(discoverGroups);
         });
     }, []); 
+    
 
 
     return(

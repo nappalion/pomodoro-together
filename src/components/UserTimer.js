@@ -15,16 +15,14 @@ import CircleTimer from './CircleTimer.js';
 const styles = {
     text: {
         color: '#1C1C1C',
-        fontSize: 60,
-        marginTop: 5,
-        marginLeft: 30,
-        marginRight: 30,
+        fontSize: 30,
     },
     timer: {
         width: '100%',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        marginTop: 20
     },
 
     timerContainer: {
@@ -46,6 +44,7 @@ function UserTimer(props) {
     const [maxTime, setMaxTime] = useState(60);
     const [isRunning, setIsRunning] = useState(false);
     const [intervalId, setIntervalId] = useState(null);
+    const [isJoined, setIsJoined] = useState(false);
 
 
     useEffect(() => {
@@ -60,9 +59,11 @@ function UserTimer(props) {
             if (snapshot.exists()) {
                 console.log(snapshot.val())
               setTimer(snapshot.val());
+              setIsJoined(true);
             } else {
               // If the timer value doesn't exist in the database, set it to 60
               setTimer(60);
+              setIsJoined(false);
             }
         });
         const maxTimeRef = ref(database, `groups/${currGroup}/users/${userId}/maxTime`);
@@ -151,6 +152,7 @@ function UserTimer(props) {
                 setTimer(timer => timer - 1);
             }
         }, 1000);
+        setIsJoined(true);
         setIntervalId(id);
     }
 
@@ -166,6 +168,7 @@ function UserTimer(props) {
 
     return(
         <div style={styles.timerContainer}>
+            {!isJoined && <span style={styles.text}>Press play to join this group.</span>}
             <div style={styles.timer}>
                 {!isRunning && <button onClick={() => {decreaseMaxTime()}}>&lt;</button>}
                 <CircleTimer time={timer} maxTime={maxTime} timerText="Focus"/>

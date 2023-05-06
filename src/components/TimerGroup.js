@@ -70,10 +70,17 @@ function TimerGroup(props) {
     return(
         <div style={styles.container}>
             <div style={styles.header}>
-                <span style={styles.titleText}>
-                    {users ? Object.keys(users).length : 0} Others in 
-                    {(currGroupName != "") ? " " + currGroupName : " N/A"}
-                </span>
+                {
+                    currGroupName ?
+                    <span style={styles.titleText}>
+                        {users ? Object.keys(users).length : 0} Others in 
+                        {(currGroupName != "") ? " " + currGroupName : " N/A"}
+                    </span> :
+                    <span style={styles.titleText}>
+                        Join a group to focus with others.
+                    </span>
+                }
+
                 <TextInput style={styles.search} placeholder={"Search"}/>
             </div>
             <div style={styles.timerGroup}>
