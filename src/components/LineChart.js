@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {
     Chart as ChartJS,
     LineElement,
@@ -33,6 +33,7 @@ ChartJS.register(
         title: {
           display: true,
           text: 'Focus Time: Last 10 Days',
+          
         },
       },
   }
@@ -41,6 +42,7 @@ ChartJS.register(
 
 const LineChart = (props) => {
   const {labels, userData} = props;
+
 
   console.log(labels);
   console.log(userData);
@@ -59,16 +61,20 @@ const LineChart = (props) => {
     ]
   }
 
-return (
-    <div style={props.style}>
+  const styles = {
+    chart: {
+      width: '100%',
+      height: '100%'
+    }
+  }
 
-      <div>
-        <Line
-          data = {data}
-          options = {options}
-        ></Line>
-      </div>
-    </div>
+return (
+  <Line
+    data = {data}
+    options = {options}
+    maintainAspectRatio={false}
+  ></Line>
+
   )
 }
 

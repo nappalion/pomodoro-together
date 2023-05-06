@@ -76,15 +76,19 @@ const LineChartStacked = (props) => {
     ]
   }
 
+  const styles = {
+    chart: {
+      width: '100%',
+      height: '100%'
+    }
+  }
+
 return (
-    <div style={props.style}>
-      <div>
-        <Line
-          data = {data}
-          options = {options}
-        ></Line>
-      </div>
-    </div>
+    <Line
+      data = {data}
+      options = {options}
+      style={styles.chart}
+    ></Line>
   )
 }
 

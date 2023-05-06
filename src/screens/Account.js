@@ -6,6 +6,7 @@ View the User Account details
 import React from 'react';
 import Layout from '../components/Layout';
 import Button from '../components/Button';
+import TextInput from '../components/TextInput';
 
 function Account(props) {
 
@@ -28,7 +29,8 @@ function Account(props) {
         container: {
             width: '100%',
             display: 'flex',
-            justifyContent: 'space-between',
+            flexDirection: 'column',
+            justifyContent: 'center',
             alignItems: 'center'
         },
 
@@ -36,11 +38,10 @@ function Account(props) {
     }
 
     return(
-      <Layout style={styles.screen}>
+      <Layout header="Account" style={styles.screen}>
 
 
         <div style={styles.container}>
-          <div className="wrapper">
             <h1>
                 <span style={{ fontWeight: 'bold' }}>Account Information</span>
             </h1>
@@ -64,7 +65,6 @@ function Account(props) {
               <div><Button text = 'DELETE ACCOUNT'/></div>
             </form>
             
-          </div>
         </div>
 
     </Layout>

@@ -11,9 +11,7 @@ import { database } from "../firebaseConfig.js"
 import { ref, child, get, set, onValue} from "firebase/database";
 import { auth } from '../firebaseConfig.js';
 
-
-import TimerGroup from '../components/TimerGroup';
-import UserTimer from '../components/UserTimer'
+import HoverContainer from '../components/HoverContainer';
 import LineChart from '../components/LineChart';
 import PieChart from '../components/PieChart';
 import BarChart from '../components/BarChart';
@@ -62,22 +60,10 @@ function Analytics() {
         container: {
             width: '100%',
             display: 'flex',
+            flexDirection: 'column',
             justifyContent: 'space-between',
             alignItems: 'center'
         },
-        lineChart: {
-            paddingBottom: 30
-        },
-        lineChartStacked: {
-            paddingTop: 30
-        },
-        pieChart: {
-            paddingBottom: 10
-        },
-        barChart: {
-            paddingTop: 10
-        }
-
     }
 
     const getLastTenDays = () => {
@@ -195,25 +181,26 @@ function Analytics() {
 
 
             <div style={styles.container}>
-                <div style={styles.leftSide}> 
-                    <div>
-                        <LineChart style={styles.lineChart} labels={labelsLast10Days} userData={userDataLast10Days}/>
-                        <LineChartStacked 
-                            style={styles.lineChartStacked} 
-                            userDataThisWeek={userDataCurrWeek} 
-                            userDataLastWeek={userDataLastWeek} 
-                            userDataLastLastWeek={userDataLastLastWeek}
-                        />
-                    </div>
-                </div>
-
-                <div style={styles.rightSide}>
-                    <div>
-                        <PieChart style={styles.pieChart} userData={userDataCurrWeek}/>
-                        <BarChart style={styles.barChart} labels={labelsUserTotalFocusData} userData={userTotalFocusData}/>
-                    </div>
-                </div>
+                <HoverContainer width={'70vw'} height={'50vh'}>
+                  <LineChart labels={labelsLast10Days} userData={userDataLast10Days}/>
+                </HoverContainer>
                 
+                <HoverContainer width={'70vw'} height={'50vh'}>
+                  <LineChartStacked 
+                      userDataThisWeek={userDataCurrWeek} 
+                      userDataLastWeek={userDataLastWeek} 
+                      userDataLastLastWeek={userDataLastLastWeek}
+                  />
+                </HoverContainer>
+
+
+                <HoverContainer width={'70vw'} height={'50vh'}>
+                  <PieChart userData={userDataCurrWeek}/>
+                </HoverContainer>
+                
+                <HoverContainer width={'70vw'} height={'50vh'}>
+                  <BarChart labels={labelsUserTotalFocusData} userData={userTotalFocusData}/>
+                </HoverContainer>
             </div>
 
         </Layout>

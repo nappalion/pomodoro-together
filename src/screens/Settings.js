@@ -5,6 +5,7 @@ View the User Settings details
 
 import React from 'react';
 import Layout from '../components/Layout';
+import TextInput from '../components/TextInput';
 
 function Settings(props) {
 
@@ -14,33 +15,22 @@ function Settings(props) {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            justifyContent: 'center'
-        },
-        leftSide: {
-            flex: 2,
-            display: 'flex',
-            alignItems: 'center',
-
-        },
-        rightSide: {
-            flex: 1,
         },
         container: {
             width: '100%',
             display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center'
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center'
         },
-
-
     }
 
     return(
         <Layout header="Settings" style={styles.screen}>
 
 
-        <div>
-            <div className="wrapper">
+            <div style={styles.container}>
+                
                 <h1>Account Settings</h1>
                 
                 <form>
@@ -89,9 +79,8 @@ function Settings(props) {
 
                     </fieldset>
                 </form>
+                        
             </div>
-                    
-        </div>
 
         </Layout>
     );

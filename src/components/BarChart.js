@@ -56,10 +56,15 @@ const BarChart = (props) => {
     ],
   };
 
+  const styles = {
+    chart: {
+      width: '100%',
+      height: '100%'
+    }
+  }
+
   return (
-    <div style={props.style}>
-      <Bar options={options} data={data} />
-    </div>
+    <Bar options={options} data={data} style={styles.chart} />
   )
 }
 

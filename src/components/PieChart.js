@@ -51,16 +51,17 @@ const PieChart = (props) => {
     ],
   }
 
+  const styles = {
+    chart: {
+      width: '100%',
+      height: '100%'
+    }
+  }
 
   return (
-    <div>
 
-      <div style={props.style}>
-        <Pie data = {data} options = {options}>
-        </Pie>
-      </div>
-
-    </div>
+    <Pie style={styles.chart} data = {data} options = {options}>
+    </Pie>
   )
 }
 
