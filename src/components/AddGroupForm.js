@@ -67,7 +67,6 @@ const AddGroupForm = () => {
 
   return (
     <div className="wrapper">
-      <h1>Create a New Study Group</h1>
       <span style={{color: '#1C1C1C', fontSize: 13, marginTop: 5}}>{createText}</span>
       <form>
         <fieldset>

@@ -38,13 +38,10 @@ function Account(props) {
     }
 
     return(
-      <Layout header="Account" style={styles.screen}>
+      <Layout header="Account Information" style={styles.screen}>
 
 
         <div style={styles.container}>
-            <h1>
-                <span style={{ fontWeight: 'bold' }}>Account Information</span>
-            </h1>
           
             <form>
               <fieldset>

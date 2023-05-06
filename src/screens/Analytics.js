@@ -40,6 +40,7 @@ function Analytics() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            overflowX: 'hidden'
         },
         leftSide: {
             height: '100vh',

@@ -3,7 +3,7 @@ This is the place to create a table to hold rows
 
 */
 
-import React from 'react';
+import React, {useState} from 'react';
 import GroupSettingsIcon from '../assets/settings-fill.svg'
 import RemoveGroupIcon from '../assets/delete-bin-fill.svg'
 import { useNavigate } from 'react-router-dom';
@@ -11,21 +11,15 @@ import { useNavigate } from 'react-router-dom';
 import { database } from "../firebaseConfig.js"
 import { auth } from '../firebaseConfig.js';
 import { ref, child, get, set, remove} from "firebase/database";
+import TableRow from './TableRow';
 
 function Table(props) {
     const navigate = useNavigate();
 
+
     const {style, data, headerText, noIcons } = props;
 
     const styles = {
-        row: {
-            color: 'black',
-            flex: 1,
-            textAlign: 'left',
-            fontSize: 20,
-            backgroundColor: '#F3F3F3',
-            borderBottom: '1px solid #C0BABA'
-        },
         categoryText: {
             color: 'black', 
             textAlign: 'start',
@@ -83,18 +77,21 @@ function Table(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((item, index) => (
-                        <tr style={styles.row} key={index}>
-                            <td onClick={()=> handleRowClick(item.groupKey)} >{item.name}</td>
-                            <td onClick={()=> handleRowClick(item.groupKey)} >{Object.keys(item.users).length} / {item.roomCapacity}</td>
-                            <td >
-                                {!noIcons && <img style={styles.icon} src={GroupSettingsIcon} onClick={() => navigate('/group-settings')}/>}
-                            </td>
-                            <td>
-                                { !noIcons && <img style={styles.icon} src={RemoveGroupIcon} onClick={() => handleDeleteItem(item.groupKey)}/>}
-                            </td>
-                        </tr>
-                    ))}
+                    {data.map((item, index) => {
+
+                        return(
+                            <TableRow key={index}>
+                                <td onClick={()=> handleRowClick(item.groupKey)} >{item.name}</td>
+                                <td onClick={()=> handleRowClick(item.groupKey)} >{Object.keys(item.users).length} / {item.roomCapacity}</td>
+                                <td >
+                                    {!noIcons && <img style={styles.icon} src={GroupSettingsIcon} onClick={() => navigate('/group-settings')}/>}
+                                </td>
+                                <td>
+                                    { !noIcons && <img style={styles.icon} src={RemoveGroupIcon} onClick={() => handleDeleteItem(item.groupKey)}/>}
+                                </td>
+                            </TableRow>
+                        )
+                    })}
                 </tbody>
             </table>
         </div>

@@ -17,7 +17,7 @@ import LogoutIcon from '../assets/logout-box-line.svg';
 
 function Menu(props) {
   const navigate = useNavigate();
-
+  const location = useLocation();
 
   const styles = {
     screen: {
@@ -56,11 +56,11 @@ function Menu(props) {
   return (
     <div style={styles.screen}>
         <div style={styles.menu}>
-            <Button color='white' secondaryColor='#DADADA' fontColor="black" text="Groups" onClick={() => navigate('/groups')} icon={GroupsIcon} />
-            <Button color='white' secondaryColor='#DADADA' fontColor="black" text="Create Group" onClick={() => navigate('/create-group')} icon={CreateGroupIcon} />
-            <Button color='white' secondaryColor='#DADADA' fontColor="black" text="Analytics" onClick={() => navigate('/analytics')} icon={AnalyticsIcon} />
-            <Button color='white' secondaryColor='#DADADA' fontColor="black" text="Account" onClick={() => navigate('/account')} icon={AccountIcon} />
-            <Button color='white' secondaryColor='#DADADA' fontColor="black" text="Settings" onClick={() => navigate('/settings')} icon={SettingsIcon} />
+            <Button color={location.pathname === "/groups" ? '#DADADA' :'white'} secondaryColor='#DADADA' fontColor="black" text="Groups" onClick={() => navigate('/groups')} icon={GroupsIcon} />
+            <Button color={location.pathname === "/create-group" ? '#DADADA' :'white'} secondaryColor='#DADADA' fontColor="black" text="Create Group" onClick={() => navigate('/create-group')} icon={CreateGroupIcon} />
+            <Button color={location.pathname === "/analytics" ? '#DADADA' :'white'} secondaryColor='#DADADA' fontColor="black" text="Analytics" onClick={() => navigate('/analytics')} icon={AnalyticsIcon} />
+            <Button color={location.pathname === "/account" ? '#DADADA' :'white'} secondaryColor='#DADADA' fontColor="black" text="Account" onClick={() => navigate('/account')} icon={AccountIcon} />
+            <Button color={location.pathname === "/settings" ? '#DADADA' :'white'} secondaryColor='#DADADA' fontColor="black" text="Settings" onClick={() => navigate('/settings')} icon={SettingsIcon} />
             <Button color='white' secondaryColor='#DADADA' fontColor="black" text="Logout" onClick={() => logout()} icon={LogoutIcon} />
         </div>
         <div style={styles.transparent} onClick={() => props.onExit()}/>

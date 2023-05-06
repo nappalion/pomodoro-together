@@ -45,15 +45,13 @@ function OtherTimer(props) {
             flexDirection: 'column',
             backgroundColor: 'white',
             borderRadius: 15,
+            justifyContent: 'center',
             color: 'black',
             margin: 10,
         },
         text: {
             color: '#1C1C1C',
             fontSize: 60,
-            marginTop: 5,
-            marginLeft: 30,
-            marginRight: 30,
         },
     }
 
@@ -82,9 +80,8 @@ function OtherTimer(props) {
 
     return(
         <div style={styles.container}>
-             <span style={styles.text}>{`${minutes}:${seconds}`}</span>
-            <span>User: {username}</span>
-            
+            <span style={styles.text}>{`${minutes}:${seconds}`}</span>
+            <span>{username}</span>
         </div>
     );
 }

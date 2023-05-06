@@ -36,7 +36,7 @@ function CreateGroup() {
     
 
     return(
-        <Layout header="Create Group" style={styles.screen}>
+        <Layout header="Create A New Group" style={styles.screen}>
 
 
         <div style={styles.container}>
