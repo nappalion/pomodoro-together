@@ -109,10 +109,11 @@ function UserTimer(props) {
 
                 get(currentDayFocusTimeRef).then((snapshot) => {
                     const currDayFocusTime = snapshot.val();
+                    console.log('max time: ' + maxTime)
                     if (currDayFocusTime === null) {
-                        set(currentDayFocusTimeRef, (timerData.val() - timer));
+                        set(currentDayFocusTimeRef, Math.abs(maxTime - timer));
                     } else {
-                        set(currentDayFocusTimeRef, currDayFocusTime + (timerData.val() - timer));
+                        set(currentDayFocusTimeRef, Math.abs(currDayFocusTime + (maxTime - timer)));
                     }
                 })
 
