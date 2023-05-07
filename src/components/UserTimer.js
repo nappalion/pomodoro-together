@@ -14,6 +14,10 @@ import CircleTimer from './CircleTimer.js';
 
 import LeftArrow from '../assets/arrow-left-fill.svg';
 import RightArrow from '../assets/arrow-right-fill.svg'
+import IconButton from './IconButton.js';
+import StopIcon from '../assets/stop-circle-fill.svg';
+import PlayIcon from '../assets/play-circle-fill.svg';
+import PauseIcon from '../assets/pause-circle-fill.svg';
 
 const styles = {
     text: {
@@ -174,14 +178,14 @@ function UserTimer(props) {
         <div style={styles.timerContainer}>
             {!isJoined && <span style={styles.text}>Press play to join this group.</span>}
             <div style={styles.timer}>
-                {!isRunning && <img style={styles.iconButton} src={LeftArrow} onClick={() => {decreaseMaxTime()}}/>}
+                {!isRunning && <IconButton style={styles.iconButton} src={LeftArrow} onClick={() => {decreaseMaxTime()}}/>}
                 <CircleTimer time={timer} maxTime={maxTime} timerText="Focus"/>
-                {!isRunning && <img style={styles.iconButton} src={RightArrow} onClick={() => {increaseMaxTime()}}/>}
+                {!isRunning && <IconButton style={styles.iconButton} src={RightArrow} onClick={() => {increaseMaxTime()}}/>}
             </div>
 
             
-            <img style={styles.iconButton} src={isRunning ? require('../assets/pause-button.png') : require('../assets/play-button.png')} onClick={() => {isRunning ? pauseTimer() : startTimer()}}/>
-            <img style={styles.iconButton} src={require('../assets/stop-button.png')} onClick={stopTimer}/>
+            <IconButton style={styles.iconButton} src={isRunning ? PauseIcon : PlayIcon} onClick={() => {isRunning ? pauseTimer() : startTimer()}}/>
+            <IconButton style={styles.iconButton} src={StopIcon} onClick={stopTimer}/>
         </div>
     );
 }

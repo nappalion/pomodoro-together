@@ -7,7 +7,7 @@ function TextButton(props) {
   const styles = {
     textButton: {
         color: '#065A82',
-        fontSize: 13,
+        fontSize: 16,
         fontWeight: 'bold',
         alignSelf: 'flex-end',
         marginTop: 5

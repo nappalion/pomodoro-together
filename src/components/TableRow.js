@@ -16,7 +16,7 @@ function TableRow(props) {
             textAlign: 'left',
             fontSize: 20,
             borderBottom: '1px solid #C0BABA',
-            backgroundColor: isHovered ?  '#D1D1D1' : '#F3F3F3'
+            backgroundColor: isHovered ?  '#D1D1D1' : '#F3F3F3',
         }
     }
 

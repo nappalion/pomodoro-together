@@ -18,6 +18,8 @@ import { ref, child, get, set, onValue} from "firebase/database";
 import TextInput from '../components/TextInput';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import SearchIcon from '../assets/search-line.svg';
+
 
 function Groups(props) {
     const navigate = useNavigate();
@@ -36,10 +38,16 @@ function Groups(props) {
             width: '100%',
             display: 'flex',
             flexDirection: 'column',
-            padding: 30
+            padding: 30,
         },
         main: {
             padding: 30
+        }, 
+        searchInput: {
+            width: '95%',
+        },
+        search: {
+            alignItems: 'center'
         }
     }
 
@@ -95,7 +103,7 @@ function Groups(props) {
     return(
         <Layout header="Groups Screen" style={styles.screen}>
             <div style={{...styles.screen, ...styles.main}}>
-                <TextInput style={styles.search} placeholder={"Search"} onSubmit={handleSearch}/>
+                <TextInput icon={SearchIcon} inputStyle={styles.searchInput} style={styles.search} placeholder={"Search"} onSubmit={handleSearch}/>
                 <Table style={styles.container} headerText="My Groups" data={myGroupsData}/>
                 <Table style={styles.container} headerText="Discover" data={discoverData} noIcons={true}/>
             </div>

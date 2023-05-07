@@ -10,6 +10,8 @@ import { signInWithEmailAndPassword } from '@firebase/auth';
 
 import { useNavigate } from 'react-router-dom';
 import TextButton from '../components/TextButton';
+import EmailIcon from '../assets/mail-fill.svg';
+import PasswordIcon from '../assets/lock-fill.svg';
 
 function Login() {
     const navigate = useNavigate();
@@ -54,7 +56,7 @@ function Login() {
       },
       text: {
         color: '#1C1C1C',
-        fontSize: 13,
+        fontSize: 16,
         alignSelf: 'flex-end',
         marginTop: 5,
         paddingRight: 5
@@ -67,8 +69,8 @@ function Login() {
 
               <img src={logo1} alt="logo1" style={styles.logo1}></img>
               <span style={{color: '#1C1C1C', fontSize: 13, marginTop: 5}}>{loginText}</span>
-              <TextInput label="Email" placeholder="Enter your email..." value={email} onChangeText={handleChangeEmail} />
-              <TextInput label="Password" placeholder="Enter your password..." value={password} onChangeText={handleChangePassword}/>
+              <TextInput label="Email" placeholder="Enter your email..." icon={EmailIcon} value={email} onChangeText={handleChangeEmail} />
+              <TextInput label="Password" placeholder="Enter your password..." icon={PasswordIcon} value={password} isPassword={true} onChangeText={handleChangePassword}/>
               <TextButton onClick={() => { navigate('/') }} text="Forgot Password?"/>
               <Button onClick={() => login(email, password)} style={{marginTop: 50}} text="Log In"/>
               

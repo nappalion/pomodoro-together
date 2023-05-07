@@ -11,6 +11,8 @@ import { auth } from "../firebaseConfig.js"
 import { database } from "../firebaseConfig.js"
 import { ref, child, get, set, onValue} from "firebase/database";
 
+import SearchIcon from '../assets/search-line.svg';
+
 function TimerGroup(props) {
     const {users, currGroup} = props;
     const [currGroupName, setCurrGroupName] = useState("");
@@ -107,7 +109,7 @@ function TimerGroup(props) {
                     </span>
                 }
 
-                <TextInput style={styles.search} placeholder={"Search"} value={search} onChangeText={handleSearch}/>
+                <TextInput icon={SearchIcon} style={styles.search} placeholder={"Search"} value={search} onChangeText={handleSearch}/>
             </div>
             <div style={styles.timerGroup}>
                 { filteredUsers && users &&

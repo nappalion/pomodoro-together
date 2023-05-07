@@ -6,6 +6,7 @@ import Menu from '../screens/Menu'
 import { auth } from "../firebaseConfig.js"
 import { database } from "../firebaseConfig.js"
 import { ref, child, get, set, onValue} from "firebase/database";
+import IconButton from './IconButton';
 
 function Layout(props) {
 
@@ -32,7 +33,7 @@ function Layout(props) {
     return(
         <div style={{...props.style, ...styles.container}}>
             <div style={styles.header}>
-                <img src={MenuIcon} style={styles.menuIcon} onClick={() => { setMenuVisible(!menuVisible); }}/>
+                <IconButton src={MenuIcon} style={styles.menuIcon} onClick={() => { setMenuVisible(!menuVisible); }}/>
                 <span style={styles.headerTitle}>{ header ? header : currGroupName}</span>
             </div>
 

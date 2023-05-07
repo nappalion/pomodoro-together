@@ -12,6 +12,7 @@ import { database } from "../firebaseConfig.js"
 import { auth } from '../firebaseConfig.js';
 import { ref, child, get, set, remove} from "firebase/database";
 import TableRow from './TableRow';
+import IconButton from './IconButton';
 
 function Table(props) {
     const navigate = useNavigate();
@@ -27,8 +28,8 @@ function Table(props) {
             paddingBottom: 15,
         },
         icon: {
+            height: '100%',
             width: 25,
-            
         },
         header: {
             backgroundColor: '#E2EFF8',
@@ -83,11 +84,11 @@ function Table(props) {
                             <TableRow key={index}>
                                 <td onClick={()=> handleRowClick(item.groupKey)} >{item.name}</td>
                                 <td onClick={()=> handleRowClick(item.groupKey)} >{Object.keys(item.users).length} / {item.roomCapacity}</td>
-                                <td >
-                                    {!noIcons && <img style={styles.icon} src={GroupSettingsIcon} onClick={() => navigate('/group-settings')}/>}
+                                <td style={{display: 'flex', alignItems: 'center'}}>
+                                    {!noIcons && <IconButton style={styles.icon} src={GroupSettingsIcon} onClick={() => navigate('/group-settings')}/>}
                                 </td>
                                 <td>
-                                    { !noIcons && <img style={styles.icon} src={RemoveGroupIcon} onClick={() => handleDeleteItem(item.groupKey)}/>}
+                                    { !noIcons && <IconButton style={styles.icon} src={RemoveGroupIcon} onClick={() => handleDeleteItem(item.groupKey)}/>}
                                 </td>
                             </TableRow>
                         )

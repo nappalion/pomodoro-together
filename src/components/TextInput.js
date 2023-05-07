@@ -1,12 +1,26 @@
 import React, { useState } from 'react';
 
+import EyeOn from '../assets/eye-fill.svg';
+import EyeOff from '../assets/eye-off-fill.svg';
+import IconButton from './IconButton';
+
 function TextInput(props) {
-    const { placeholder, value, onChangeText, label, name, onSubmit} = props;
+    const { placeholder, value, onChangeText, label, name, onSubmit, inputStyle, isPassword, icon} = props;
+    const [showPassword, setShowPassword] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
 
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
             onSubmit(event);
         }
+    }
+
+    const handleFocus = () => {
+        setIsFocused(true);
+    }
+    
+    const handleBlur = () => {
+        setIsFocused(false);
     }
 
     const styles = {
@@ -15,7 +29,7 @@ function TextInput(props) {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'flex-start',
-            marginTop: 10
+            marginTop: 10,
         },
         label: {
             textAlign: 'left',
@@ -25,29 +39,52 @@ function TextInput(props) {
             paddingBottom: 5,
         },
         textInput: {
+            border: 'none',
+            outline: 'none',
             '::placeholder': {
                 color: '#949494'
             },
-            padding: 20,
             backgroundColor: '#F6F6F6',
-            border: '2px solid #DADADA',
+            paddingTop: 20,
+            paddingBottom: 20,
             borderRadius: 16,
             fontSize: 18,
-        }
+            flex: 1,
+        },
+        icon: {
+            width: 30,
+            paddingLeft: 10,
+            paddingRight: 10
+        },
+        inputContainer: {
+            display: 'flex',
+            flexDirection: 'row',
+            backgroundColor: '#F6F6F6',
+            border: !isFocused ? '2px solid #DADADA' : '2px solid #636363',
+            borderRadius: 16,
+            width: '100%'
+        }, 
         
     }
   
     return (
         <div style={{...styles.container, ...props.style}} >
             <span style={styles.label}>{label}</span>
-            <input
-                name={name}
-                value={value}
-                style={styles.textInput}
-                placeholder={placeholder}
-                onChange={onChangeText}
-                onKeyDown={handleKeyDown}
-            />
+            <div style={styles.inputContainer}>
+                {icon && <img style={styles.icon} src={icon}/>}
+                <input
+                    name={name}
+                    value={value}
+                    type={isPassword && showPassword ? 'password': 'text'}
+                    style={{...styles.textInput, ...inputStyle}}
+                    placeholder={placeholder}
+                    onChange={onChangeText}
+                    onKeyDown={handleKeyDown}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                />
+                {isPassword && <IconButton style={styles.icon} src={showPassword ? EyeOff : EyeOn } onClick={() => setShowPassword(!showPassword)}/>}
+            </div>
         </div>
     );
 }
