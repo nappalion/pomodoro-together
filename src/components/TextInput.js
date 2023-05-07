@@ -5,7 +5,7 @@ import EyeOff from '../assets/eye-off-fill.svg';
 import IconButton from './IconButton';
 
 function TextInput(props) {
-    const { placeholder, value, onChangeText, label, name, onSubmit, inputStyle, isPassword, icon} = props;
+    const { placeholder, value, onChangeText, label, name, onSubmit, inputStyle, isPassword, icon, type, inputProps} = props;
     const [showPassword, setShowPassword] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
 
@@ -76,13 +76,14 @@ function TextInput(props) {
                 <input
                     name={name}
                     value={value}
-                    type={isPassword && !showPassword ? 'password': 'text'}
+                    type={!type ? (isPassword && !showPassword ? 'password': 'text') : type}
                     style={{...styles.textInput, ...inputStyle}}
                     placeholder={placeholder}
                     onChange={onChangeText}
                     onKeyDown={handleKeyDown}
                     onFocus={handleFocus}
                     onBlur={handleBlur}
+                    {...inputProps}
                 />
                 {isPassword && <IconButton style={styles.icon} src={!showPassword ? EyeOff : EyeOn } onClick={() => setShowPassword(!showPassword)}/>}
             </div>
