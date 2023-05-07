@@ -50,6 +50,7 @@ function TextInput(props) {
             borderRadius: 16,
             fontSize: 18,
             flex: 1,
+            paddingLeft: icon ? 0 : 20
         },
         icon: {
             width: 30,
@@ -75,7 +76,7 @@ function TextInput(props) {
                 <input
                     name={name}
                     value={value}
-                    type={isPassword && showPassword ? 'password': 'text'}
+                    type={isPassword && !showPassword ? 'password': 'text'}
                     style={{...styles.textInput, ...inputStyle}}
                     placeholder={placeholder}
                     onChange={onChangeText}
@@ -83,7 +84,7 @@ function TextInput(props) {
                     onFocus={handleFocus}
                     onBlur={handleBlur}
                 />
-                {isPassword && <IconButton style={styles.icon} src={showPassword ? EyeOff : EyeOn } onClick={() => setShowPassword(!showPassword)}/>}
+                {isPassword && <IconButton style={styles.icon} src={!showPassword ? EyeOff : EyeOn } onClick={() => setShowPassword(!showPassword)}/>}
             </div>
         </div>
     );
