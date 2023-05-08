@@ -8,9 +8,11 @@ import React, {useState} from 'react';
 
 import { database } from "../firebaseConfig.js"
 import { ref, child, get, set} from "firebase/database";
-
-import { auth } from "../firebaseConfig.js"
+import { ref as storageRef } from "firebase/storage";
+import { auth } from "../firebaseConfig.js";
+import { storage } from '../firebaseConfig.js';
 import { createUserWithEmailAndPassword } from '@firebase/auth';
+import { uploadBytes } from 'firebase/storage';
 
 import { useNavigate } from 'react-router-dom';
 import TextInput from '../components/TextInput.js';
@@ -23,6 +25,7 @@ function Signup(props) {
     const [password, setPassword] = useState("")
     const [username, setUsername] = useState("")
     const [loginText, setLoginText] = useState("");
+
 
     const styles = {
         container: {
@@ -48,6 +51,7 @@ function Signup(props) {
         setPassword(event.target.value);
     }
 
+
     function createUser(email, password, username) {
         setLoginText("");
         if (email != "" && password != "" && username != "") {
@@ -56,7 +60,7 @@ function Signup(props) {
                 const userID = userCredential.user.uid;
                 // Signed in
                 set(ref(database, `users/${userID}`), {currGroup: -1, username: username.toString()})
-                navigate("/timer");
+                navigate("/profile-picture-form");
             })
             .catch((error) => {
                 const errorCode = error.code.toString();
