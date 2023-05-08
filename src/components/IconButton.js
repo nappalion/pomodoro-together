@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 
 function IconButton(props) {
-  const { onClick, src } = props;
+  const { onClick } = props;
+  const src = props.src instanceof File ? URL.createObjectURL(props.src) : props.src;
   const [isHovered, setIsHovered] = useState(false);
 
   const styles = {
@@ -16,6 +17,7 @@ function IconButton(props) {
     },
 
   }
+
 
   return (
     <img style={{ 

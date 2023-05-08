@@ -17,7 +17,7 @@ const firebaseConfig = {
   messagingSenderId: "354922231576",
   appId: "1:354922231576:web:026ef87fca55927351906d",
   measurementId: "G-7L7GD1MP3X",
-  storageBucket: 'gs://pomodorotogether-9cd25.appspot.com',
+  storageBucket: "gs://pomodorotogether-9cd25.appspot.com",
 };
 
 // Initialize Firebase

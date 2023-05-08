@@ -12,6 +12,7 @@ import Settings from './screens/Settings';
 import Signup from './screens/Signup';
 import GroupSettings from './screens/GroupSettings';
 import GroupSearchResults from './screens/GroupSearchResults';
+import ProfilePictureForm from './screens/ProfilePictureForm';
 
 const styles={
   app: {
@@ -40,6 +41,7 @@ function App() {
             <Route path="/signup" element={<Signup/>}/>
             <Route path="/group-settings" element={<GroupSettings/>}/>
             <Route path="/group-search-results" element={<GroupSearchResults/>}/>
+            <Route path="/profile-picture-form" element={<ProfilePictureForm/>}/>
           </Routes>
         </BrowserRouter>
       </header>

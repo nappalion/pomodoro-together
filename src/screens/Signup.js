@@ -8,8 +8,8 @@ import React, {useState} from 'react';
 
 import { database } from "../firebaseConfig.js"
 import { ref, child, get, set} from "firebase/database";
-
-import { auth } from "../firebaseConfig.js"
+import { ref as storageRef } from "firebase/storage";
+import { auth } from "../firebaseConfig.js";
 import { storage } from '../firebaseConfig.js';
 import { createUserWithEmailAndPassword } from '@firebase/auth';
 import { uploadBytes } from 'firebase/storage';
@@ -25,7 +25,6 @@ function Signup(props) {
     const [password, setPassword] = useState("")
     const [username, setUsername] = useState("")
     const [loginText, setLoginText] = useState("");
-    const [profilePic, setProfilePic] = useState(null);
 
 
     const styles = {
@@ -52,10 +51,6 @@ function Signup(props) {
         setPassword(event.target.value);
     }
 
-    function handleFileChange(event) {
-        setProfilePic(event.target.files[0]);
-        console.log(profilePic)
-    }
 
     function createUser(email, password, username) {
         setLoginText("");
@@ -65,7 +60,7 @@ function Signup(props) {
                 const userID = userCredential.user.uid;
                 // Signed in
                 set(ref(database, `users/${userID}`), {currGroup: -1, username: username.toString()})
-                navigate("/timer");
+                navigate("/profile-picture-form");
             })
             .catch((error) => {
                 const errorCode = error.code.toString();
@@ -78,35 +73,12 @@ function Signup(props) {
 
     }
 
-    
-    function testUpload() {
-        const profileRef = ref(storage, 'images/profile1.jpg')
-        console.log(storage)
-        if (profilePic) {
-            uploadBytes(profileRef, profilePic)
-            .then((snapshot) => {
-                console.log('Uploaded profile picture!');
-            })
-            .catch((error) => {
-                console.log('Error uploading profile picture: ' + error);
-            })
-        } else {
-            console.log("No profile picture.");
-        }
-        
-    }
-
     return(
         <div style={styles.container}>
             <text style={{color: '#1C1C1C', fontSize: 13, marginTop: 5}}>{loginText}</text>
             <TextInput label="Username" placeholder="Please enter a username..." value={username} onChangeText={handleChangeUsername} />
             <TextInput label="Email" placeholder="Please enter a email..." value={email} onChangeText={handleChangeEmail} />
             <TextInput label="Password" placeholder="Please enter a password..." value={password} onChangeText={handleChangePassword}/>
-            <TextInput type="file" inputProps={{
-                accept: "image/*" ,
-                onChange: handleFileChange
-                }}/>
-            <Button onClick={() => testUpload()} style={{marginTop: 50}} text="Upload Photo Test"/>
             <Button onClick={() => createUser(email, password, username)} style={{marginTop: 50}} text="Sign Up"/>
         </div>
     );
