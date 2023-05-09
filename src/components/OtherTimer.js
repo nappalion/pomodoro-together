@@ -126,7 +126,7 @@ function OtherTimer(props) {
                 <span style={styles.username}>{username}</span>
             </div>
 
-            <span style={styles.hoursToday}>{hoursToday} hours today</span>
+            <span style={styles.hoursToday}>{hoursToday} seconds today</span>
         </HoverContainer>
 
     );
