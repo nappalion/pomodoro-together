@@ -56,6 +56,10 @@ function UserTimer(props) {
 
     useEffect(() => {
         setTimer(maxTime);
+        const timerRef = ref(database, `groups/${currGroup}/users/${userId}/timer`);
+        const maxTimeRef = ref(database, `groups/${currGroup}/users/${userId}/maxTime`);
+        set(timerRef, maxTime);
+        set(maxTimeRef, maxTime);
     }, [maxTime]);
 
     useEffect(() => {
@@ -172,6 +176,10 @@ function UserTimer(props) {
 
     function stopTimer() {
         setTimer(maxTime);
+        const timerRef = ref(database, `groups/${currGroup}/users/${userId}/timer`);
+        const maxTimeRef = ref(database, `groups/${currGroup}/users/${userId}/maxTime`);
+        set(timerRef, maxTime);
+        set(maxTimeRef, maxTime);
     }
 
     return(
