@@ -32,6 +32,12 @@ function OtherTimer(props) {
         });
     }, []);
     
+    useEffect(() => {
+        if (timer < 0) {
+            setTimer(maxTime);
+            pauseTimer();
+        }
+    }, [timer])
 
     function startTimer() {
         if (isRunning) {
@@ -117,6 +123,20 @@ function OtherTimer(props) {
         }
     }, [currGroup, userId, isRunning]);
 
+    function displayTime(secondsToday) {
+        const seconds = secondsToday % 60;
+        const minutes = Math.floor(secondsToday / 60) % 60;
+        const hours = Math.floor(secondsToday / (60 * 60));
+
+        if (hours > 0) {
+            return `${hours} hour${hours > 1 ? 's' : ''}`;
+        } else if (minutes > 0) {
+            return `${minutes} minute${minutes > 1 ? 's' : ''}`;
+        } else {
+            return `${seconds} second${seconds > 1 ? 's' : ''}`;
+        }
+    }
+
     return(
 
         <HoverContainer style={styles.container}>
@@ -126,7 +146,7 @@ function OtherTimer(props) {
                 <span style={styles.username}>{username}</span>
             </div>
 
-            <span style={styles.hoursToday}>{hoursToday} hours today</span>
+            <span style={styles.hoursToday}>{displayTime(hoursToday)}</span>
         </HoverContainer>
 
     );

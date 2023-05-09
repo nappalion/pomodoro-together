@@ -23,6 +23,7 @@ function TimerGroup(props) {
     useEffect(() => {
         const userId = auth.currentUser.uid
         const userCurrGroupRef = ref(database, 'users/' + userId + '/currGroup');
+        
         onValue(userCurrGroupRef, (snapshot) => {
             const currentGroup = snapshot.val();
             const currGroupNameRef = ref(database, 'groups/' + currentGroup + '/name');

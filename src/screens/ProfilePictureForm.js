@@ -83,7 +83,7 @@ function ProfilePictureForm(props) {
                     onChange: handleFileChange
                 }}
             />
-            <Button onClick={() => testUpload()} style={{marginTop: 50}} text="Upload Photo Test"/>
+            <Button onClick={() => testUpload()} style={{marginTop: 50}} text="Upload"/>
         </div>
     );
 }

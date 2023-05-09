@@ -19,6 +19,10 @@ import StopIcon from '../assets/stop-circle-fill.svg';
 import PlayIcon from '../assets/play-circle-fill.svg';
 import PauseIcon from '../assets/pause-circle-fill.svg';
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
 const styles = {
     text: {
         color: '#1C1C1C',
@@ -57,6 +61,18 @@ function UserTimer(props) {
     useEffect(() => {
         setTimer(maxTime);
     }, [maxTime]);
+
+    useEffect(() => {
+        if (timer < 0) {
+            saveTime();
+            stopTimer();
+        }
+
+        if (timer == maxTime) {
+            pauseTimer();
+            console.log("Times match:")
+        }
+    }, [timer])
 
     useEffect(() => {
         const userId = auth.currentUser.uid
@@ -101,37 +117,41 @@ function UserTimer(props) {
         const userId = auth.currentUser.uid
         const currDate = getCurrentDate()
 
+        console.log("Times: " + timer.toString() + " " + maxTime.toString());
+
         const totalFocusTimeRef = ref(database, `users/${auth.currentUser.uid}/totalFocusTime`);
-        const focusTimeRef = ref(database, `users/${auth.currentUser.uid}/focusTime`);
+        const focusTimeRef = ref(database, `users/${auth.currentUser.uid}/focusTime`); // current day's focus time
         const prevTimerRef = ref(database, `groups/${currGroup}/users/${auth.currentUser.uid}/timer`);
-        const currentDayFocusTimeRef = ref(database, `users/${auth.currentUser.uid}/focusTime/${currDate}`);
+        const maxTimeRef = ref(database, `groups/${currGroup}/users/${auth.currentUser.uid}/maxTime`);
+        set(maxTimeRef, maxTime);
         get(prevTimerRef).then((timerData) => {
             get(totalFocusTimeRef).then((totalFocusData) => {
                 if (timerData.exists() && totalFocusData.exists()) {
-                    console.log((timerData.val() - timer) + totalFocusData.val())
-                    set(ref(database, 'users/' + userId + '/totalFocusTime/'), (timerData.val() - timer) + totalFocusData.val());
+                    console.log("----------------")
+                    console.log("TimerData.val: " + timerData.val().toString())
+                    console.log("Timer: " + timer.toString())
+                    console.log("TocalFocusData.val: " + totalFocusData.val().toString())
+                    console.log('Value for focusTime: ' + ((timerData.val() - timer) + totalFocusData.val()).toString())
+                    console.log("----------------")
+                    if (timer < timerData.val()) {
+                        set(ref(database, 'users/' + userId + '/totalFocusTime/'), (timerData.val() - timer) + totalFocusData.val());
+                    }
                 } else {
                     console.log("Error.")
                 }
-
-                get(currentDayFocusTimeRef).then((snapshot) => {
-                    const currDayFocusTime = snapshot.val();
-                    console.log('max time: ' + maxTime)
-                    if (currDayFocusTime === null) {
-                        set(currentDayFocusTimeRef, Math.abs(maxTime - timer));
-                    } else {
-                        set(currentDayFocusTimeRef, Math.abs(currDayFocusTime + (maxTime - timer)));
-                    }
-                })
 
                 get(focusTimeRef).then((snapshot) => {
                     const focusTimeData = snapshot.val();
                     for (let dateKey in focusTimeData) {
                         if (dateKey == currDate) {
-                            set(ref(database, 'users/' + userId + '/focusTime/' + dateKey), (timerData.val() - timer) + focusTimeData[dateKey])
+                            if (timer < timerData.val()) {
+                                set(ref(database, 'users/' + userId + '/focusTime/' + dateKey), (timerData.val() - timer) + focusTimeData[dateKey])
+                            }
                         }
                     }
                 });
+
+                
             });
         });
         set(ref(database, 'groups/' + currGroup + "/users/" + auth.currentUser.uid + "/timer"), timer);
@@ -158,8 +178,10 @@ function UserTimer(props) {
         const id = setInterval(() => {
             if (timer > 0) {
                 setTimer(timer => timer - 1);
+            } else {
+                stopTimer()
             }
-        }, 1000);
+        }, 100);
         setIsJoined(true);
         setIntervalId(id);
     }
@@ -171,11 +193,14 @@ function UserTimer(props) {
     }
 
     function stopTimer() {
+        toast('Timer has finished!', {
+            position: "top-left"});
         setTimer(maxTime);
     }
 
     return(
         <div style={styles.timerContainer}>
+            <ToastContainer/>
             {!isJoined && <span style={styles.text}>Press play to join this group.</span>}
             <div style={styles.timer}>
                 {!isRunning && <IconButton style={styles.iconButton} src={LeftArrow} onClick={() => {decreaseMaxTime()}}/>}
