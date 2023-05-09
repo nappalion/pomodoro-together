@@ -53,6 +53,18 @@ function UserTimer(props) {
     const [intervalId, setIntervalId] = useState(null);
     const [isJoined, setIsJoined] = useState(false);
 
+    useEffect(() => {
+        if (timer < 1) {
+            saveTime();
+            setTimer(maxTime);
+            const timerRef = ref(database, `groups/${currGroup}/users/${userId}/timer`);
+            const maxTimeRef = ref(database, `groups/${currGroup}/users/${userId}/maxTime`);
+            set(timerRef, maxTime);
+            set(maxTimeRef, maxTime);
+            clearInterval(intervalId);
+            setIsRunning(false);
+        }
+    }, [timer])
 
     useEffect(() => {
         setTimer(maxTime);
