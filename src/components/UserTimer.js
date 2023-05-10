@@ -168,12 +168,18 @@ function UserTimer(props) {
 
                 get(focusTimeRef).then((snapshot) => {
                     const focusTimeData = snapshot.val();
+                    let dateExists = false;
                     for (let dateKey in focusTimeData) {
                         if (dateKey == currDate) {
                             if (timer < timerData.val()) {
                                 set(ref(database, 'users/' + userId + '/focusTime/' + dateKey), (timerData.val() - timer) + focusTimeData[dateKey])
+                                dateExists = true;
                             }
                         }
+                    }
+
+                    if (!dateExists) {
+                        set(ref(database, 'users/' + userId + '/focusTime/' + getCurrentDate()), (timerData.val() - timer))
                     }
                 });
 
