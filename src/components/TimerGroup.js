@@ -18,6 +18,19 @@ function TimerGroup(props) {
     const [currGroupName, setCurrGroupName] = useState("");
     const [search, setSearch] = useState("");
     const [filteredUsers, setFilteredUsers] = useState(users);
+    const [width, setWidth] = useState(window.innerWidth);
+    const [height, setHeight] = useState(window.innerHeight);
+  
+    useEffect(() => {
+      function handleResize() {
+        setWidth(window.innerWidth);
+        setHeight(window.innerHeight);
+      }
+  
+      window.addEventListener('resize', handleResize);
+  
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     
     useEffect(() => {
@@ -66,13 +79,12 @@ function TimerGroup(props) {
         },
         timerGroup: {
             width: '100%',
-            maxHeight: 'calc(100vh - 260px)',
+            maxHeight: width > height ? 'calc(100vh - 100px)' : width/2,
             overflowY: 'scroll',
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
             gridAutoFlow: 'dense',
             gap: 10,
-            padding: 20,
             backgroundColor: '#9EB3C2',
             
         }

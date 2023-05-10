@@ -26,6 +26,20 @@ function Timer() {
     const [currGroup, setCurrGroup] = useState("");
     const [currGroupUsers, setCurrGroupUsers] = useState();
 
+    const [width, setWidth] = useState(window.innerWidth);
+    const [height, setHeight] = useState(window.innerHeight);
+
+    useEffect(() => {
+        function handleResize() {
+            setWidth(window.innerWidth);
+            setHeight(window.innerHeight);
+        }
+
+        window.addEventListener('resize', handleResize);
+
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     const styles = {
         screen: {
             height: '100vh',
@@ -42,15 +56,17 @@ function Timer() {
 
         },
         rightSide: {
+            width: '100%',
             flex: 1,
+            
         },
         container: {
             width: '100%',
             display: 'flex',
             justifyContent: 'space-between',
-            alignItems: 'center'
+            alignItems: 'center',
+            flexDirection: width > height ? 'row' : 'column'
         },
-
 
     }
 
@@ -109,14 +125,19 @@ function Timer() {
             
 
             <div style={styles.container}>
-                <div style={styles.leftSide}> 
-                    {currGroup != -1 && <UserTimer currGroup={currGroup}/>}
-                    {currGroup == -1 && <span style={{width: '100%', color: 'black', padding: 100}}>Join a group using the "Groups" tab in the left menu.</span>}
-                </div>
 
-                <div style={styles.rightSide}>
-                    <TimerGroup currGroup={currGroup} users={currGroupUsers}/>
-                </div>
+                {
+                    <div style={styles.leftSide}> 
+                        {currGroup != -1 && <UserTimer currGroup={currGroup}/>}
+                        {currGroup == -1 && <span style={{width: '100%', color: 'black', padding: 100}}>Join a group using the "Groups" tab in the left menu.</span>}
+                    </div>
+                }
+
+                {   
+                    <div style={styles.rightSide}>
+                        <TimerGroup currGroup={currGroup} users={currGroupUsers}/>
+                    </div>
+                }
                 
             </div>
 
