@@ -133,7 +133,7 @@ function OtherTimer(props) {
         } else if (minutes > 0) {
             return `${minutes} minute${minutes > 1 ? 's' : ''}`;
         } else {
-            return `${seconds} second${seconds > 1 ? 's' : ''}`;
+            return `${seconds} second${seconds != 1 ? 's' : ''}`;
         }
     }
 
@@ -145,7 +145,6 @@ function OtherTimer(props) {
                 <IconButton style={styles.profile} src={profileUrl ? profileUrl : require('../assets/default-profile.jpg')}/>
                 <span style={styles.username}>{username}</span>
             </div>
-
             <span style={styles.hoursToday}>{displayTime(hoursToday)}</span>
         </HoverContainer>
 

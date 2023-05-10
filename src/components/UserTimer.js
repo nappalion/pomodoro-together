@@ -23,6 +23,8 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 
+import sound from "../assets/timer-complete-sound.wav";
+
 const styles = {
     text: {
         color: '#1C1C1C',
@@ -57,9 +59,33 @@ function UserTimer(props) {
     const [intervalId, setIntervalId] = useState(null);
     const [isJoined, setIsJoined] = useState(false);
 
+    function playSound() {
+        new Audio(sound).play()
+    }
+
+    useEffect(() => {
+        if (timer < 1) {
+            toast.dismiss();
+            toast('Timer has finished!', {
+                position: "top-left"});
+            playSound();
+            saveTime();
+            setTimer(maxTime);
+            const timerRef = ref(database, `groups/${currGroup}/users/${userId}/timer`);
+            const maxTimeRef = ref(database, `groups/${currGroup}/users/${userId}/maxTime`);
+            set(timerRef, maxTime);
+            set(maxTimeRef, maxTime);
+            clearInterval(intervalId);
+            setIsRunning(false);
+        }
+    }, [timer])
 
     useEffect(() => {
         setTimer(maxTime);
+        const timerRef = ref(database, `groups/${currGroup}/users/${userId}/timer`);
+        const maxTimeRef = ref(database, `groups/${currGroup}/users/${userId}/maxTime`);
+        set(timerRef, maxTime);
+        set(maxTimeRef, maxTime);
     }, [maxTime]);
 
     useEffect(() => {
@@ -181,7 +207,7 @@ function UserTimer(props) {
             } else {
                 stopTimer()
             }
-        }, 100);
+        }, 1000);
         setIsJoined(true);
         setIntervalId(id);
     }
@@ -193,9 +219,11 @@ function UserTimer(props) {
     }
 
     function stopTimer() {
-        toast('Timer has finished!', {
-            position: "top-left"});
         setTimer(maxTime);
+        const timerRef = ref(database, `groups/${currGroup}/users/${userId}/timer`);
+        const maxTimeRef = ref(database, `groups/${currGroup}/users/${userId}/maxTime`);
+        set(timerRef, maxTime);
+        set(maxTimeRef, maxTime);
     }
 
     return(
