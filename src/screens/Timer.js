@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 
 import { database } from "../firebaseConfig.js";
 import { ref, onValue } from "firebase/database";
@@ -112,8 +111,8 @@ function Timer() {
       <div style={styles.container}>
         {
           <div style={styles.leftSide}>
-            {currGroup != -1 && <UserTimer currGroup={currGroup} />}
-            {currGroup == -1 && (
+            {currGroup !== -1 && <UserTimer currGroup={currGroup} />}
+            {currGroup === -1 && (
               <span style={{ width: "100%", color: "black", padding: 100 }}>
                 Join a group using the "Groups" tab in the left menu.
               </span>

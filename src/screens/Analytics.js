@@ -5,7 +5,6 @@ User can view their studying stats over the course of a day, week, month, year
 */
 
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 import { database } from "../firebaseConfig.js";
 import { ref, onValue } from "firebase/database";
 import { auth } from "../firebaseConfig.js";

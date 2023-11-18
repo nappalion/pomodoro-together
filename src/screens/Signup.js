@@ -7,12 +7,9 @@ Name, Date of Birth, Email, Password, Username, Profile Picture
 import React, { useState } from "react";
 
 import { database } from "../firebaseConfig.js";
-import { ref, child, get, set } from "firebase/database";
-import { ref as storageRef } from "firebase/storage";
+import { ref, set } from "firebase/database";
 import { auth } from "../firebaseConfig.js";
-import { storage } from "../firebaseConfig.js";
 import { createUserWithEmailAndPassword } from "@firebase/auth";
-import { uploadBytes } from "firebase/storage";
 
 import { useNavigate } from "react-router-dom";
 import TextInput from "../components/TextInput.js";
@@ -20,7 +17,6 @@ import Button from "../components/Button.js";
 
 function Signup(props) {
   const navigate = useNavigate();
-  const [currUser, setCurrUser] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
@@ -65,7 +61,6 @@ function Signup(props) {
         })
         .catch((error) => {
           const errorCode = error.code.toString();
-          const errorMessage = error.message.toString();
           setLoginText(errorCode);
         });
     } else {
