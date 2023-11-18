@@ -1,7 +1,0 @@
-{
-  "dev": {
-    "configLevel": "project",
-    "useProfile": false,
-    "awsConfigFilePath": "/Users/scylla/.amplify/awscloudformation/TjIKRQP6Kl"
-  }
-}

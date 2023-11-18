@@ -1,47 +1,51 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 
-import { BrowserRouter, Routes, Route} from 'react-router-dom';
-import Login from './screens/Login';
-import Timer from './screens/Timer';
-import Groups from './screens/Groups';
-import CreateGroup from './screens/CreateGroup';
-import Analytics from './screens/Analytics';
-import Account from './screens/Account';
-import Settings from './screens/Settings';
-import Signup from './screens/Signup';
-import GroupSettings from './screens/GroupSettings';
-import GroupSearchResults from './screens/GroupSearchResults';
-import ProfilePictureForm from './screens/ProfilePictureForm';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./screens/Login";
+import Timer from "./screens/Timer";
+import Groups from "./screens/Groups";
+import CreateGroup from "./screens/CreateGroup";
+import Analytics from "./screens/Analytics";
+import Account from "./screens/Account";
+import Settings from "./screens/Settings";
+import Signup from "./screens/Signup";
+import GroupSettings from "./screens/GroupSettings";
+import GroupSearchResults from "./screens/GroupSearchResults";
+import ProfilePictureForm from "./screens/ProfilePictureForm";
 
-const styles={
+const styles = {
   app: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     height: "100vh",
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
   },
-
-}
+};
 
 function App() {
-
   return (
     <div className="App" style={styles.app}>
-      <header className="App-header" style={{backgroundColor: 'white'}}>
+      <header className="App-header" style={{ backgroundColor: "white" }}>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Login/>}/>
-            <Route path="/timer" element={<Timer/>}/>
-            <Route path="/groups" element={<Groups/>}/>
-            <Route path="/create-group" element={<CreateGroup/>}/>
-            <Route path="/analytics" element={<Analytics/>}/>
-            <Route path="/account" element={<Account/>}/>
-            <Route path="/settings" element={<Settings/>}/>
-            <Route path="/signup" element={<Signup/>}/>
-            <Route path="/group-settings" element={<GroupSettings/>}/>
-            <Route path="/group-search-results" element={<GroupSearchResults/>}/>
-            <Route path="/profile-picture-form" element={<ProfilePictureForm/>}/>
+            <Route path="/" element={<Login />} />
+            <Route path="/timer" element={<Timer />} />
+            <Route path="/groups" element={<Groups />} />
+            <Route path="/create-group" element={<CreateGroup />} />
+            <Route path="/analytics" element={<Analytics />} />
+            <Route path="/account" element={<Account />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/group-settings" element={<GroupSettings />} />
+            <Route
+              path="/group-search-results"
+              element={<GroupSearchResults />}
+            />
+            <Route
+              path="/profile-picture-form"
+              element={<ProfilePictureForm />}
+            />
           </Routes>
         </BrowserRouter>
       </header>

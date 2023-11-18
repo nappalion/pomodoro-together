@@ -10,9 +10,8 @@ Will be displayed with other users in a group
 import React, {useEffect, useState} from 'react';
 import { database } from "../firebaseConfig.js"
 import { storage } from '../firebaseConfig.js';
-import { auth } from '../firebaseConfig.js';
 import { ref as storageRef, getDownloadURL } from 'firebase/storage';
-import { ref, child, get, set, onValue} from "firebase/database";
+import { ref, onValue} from "firebase/database";
 import CircleTimer from './CircleTimer.js';
 import HoverContainer from './HoverContainer.js';
 import IconButton from './IconButton.js';

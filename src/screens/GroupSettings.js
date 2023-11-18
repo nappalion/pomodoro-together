@@ -7,13 +7,10 @@ Ability to delete group (add second prompt to confirm choice).
 
 */
 
-import React from 'react';
+import React from "react";
 
 function GroupSettings(props) {
-
-    return(
-        <span style={{color: 'black'}}>group settings screen</span>
-    );
+  return <span style={{ color: "black" }}>group settings screen</span>;
 }
 
 export default GroupSettings;

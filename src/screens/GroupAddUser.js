@@ -5,13 +5,10 @@ Holds a search bar and a list that displays the results for the user's search
 
 */
 
-import React from 'react';
+import React from "react";
 
 function GroupAddUser(props) {
-
-    return(
-        <span style={{color: 'black'}}>add group screen</span>
-    );
+  return <span style={{ color: "black" }}>add group screen</span>;
 }
 
 export default GroupAddUser;
