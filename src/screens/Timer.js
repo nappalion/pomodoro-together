@@ -19,6 +19,8 @@ function Timer() {
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerHeight);
 
+
+
   useEffect(() => {
     function handleResize() {
       setWidth(window.innerWidth);
@@ -67,41 +69,49 @@ function Timer() {
   }
 
   useEffect(() => {
-    // Get group that signed in user is in
     const userRef = ref(database, "users/" + userId + "/currGroup");
     onValue(userRef, (snapshot) => {
       const currentGroup = snapshot.val();
       setCurrGroup(currentGroup);
 
-      // Get list of users in that group
-      const currGroupUsersRef = ref(
-        database,
-        "groups/" + currentGroup + "/users"
-      );
+      const currGroupUsersRef = ref(database, "groups/" + currentGroup + "/users");
       onValue(currGroupUsersRef, (snapshot) => {
         const users = snapshot.val();
         let updatedUsers = {};
+
+        // Store all asynchronous functions for fetching user data
+        const userDetailsPromises = [];
+
         for (let userKey in users) {
-          if (userKey != userId) {
+          if (userKey !== userId) {
             updatedUsers[userKey] = users[userKey];
 
-            // Get username of each user in group's users
             const currUserRef = ref(database, "users/" + userKey);
-            onValue(currUserRef, (snapshot) => {
-              const user = snapshot.val();
-              updatedUsers[userKey].username = user.username;
 
-              const currentDate = getCurrentDate();
-              if (user.focusTime && user.focusTime[currentDate]) {
-                updatedUsers[userKey].hoursFocused =
-                  user.focusTime[currentDate];
-              } else {
-                updatedUsers[userKey].hoursFocused = 0;
-              }
+            // Create a promise for async function
+            const userDetailPromise = new Promise((resolve) => {
+              onValue(currUserRef, (snapshot) => {
+                const user = snapshot.val();
+                const userDetails = {
+                  username: user.username,
+                  hoursFocused: user.focusTime && user.focusTime[getCurrentDate()] ? user.focusTime[getCurrentDate()] : 0,
+                };
+                updatedUsers[userKey] = { ...updatedUsers[userKey], ...userDetails };
+
+                // If the async function is done, then we use resolve() to say this promise done
+                resolve();
+              });
             });
+
+            // Push the async function into the list
+            userDetailsPromises.push(userDetailPromise);
           }
         }
-        setCurrGroupUsers(updatedUsers);
+
+        // If all the promises resolve, then we update state variables (to rerender UI)
+        Promise.all(userDetailsPromises).then(() => {
+          setCurrGroupUsers(updatedUsers);
+        });
       });
     });
   }, []);
@@ -123,6 +133,7 @@ function Timer() {
         {
           <div style={styles.rightSide}>
             <TimerGroup currGroup={currGroup} users={currGroupUsers} />
+            
           </div>
         }
       </div>

@@ -127,6 +127,10 @@ function OtherTimer(props) {
         const minutes = Math.floor(secondsToday / 60) % 60;
         const hours = Math.floor(secondsToday / (60 * 60));
 
+        if (isNaN(secondsToday) || typeof secondsToday === 'undefined') {
+            return '0 seconds';
+        }
+
         if (hours > 0) {
             return `${hours} hour${hours > 1 ? 's' : ''}`;
         } else if (minutes > 0) {
