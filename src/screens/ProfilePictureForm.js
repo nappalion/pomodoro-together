@@ -87,6 +87,12 @@ function ProfilePictureForm(props) {
         style={{ marginTop: 50 }}
         text="Upload"
       />
+
+      <Button
+        onClick={() => navigate("/timer")}
+        style={{ backgroundColor: "#c2c2c2" }}
+        text="Back"
+      />
     </div>
   );
 }

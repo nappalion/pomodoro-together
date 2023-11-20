@@ -54,10 +54,6 @@ function Account(props) {
 
             <button> Reset </button>
           </fieldset>
-
-          <div>
-            <Button text="DELETE ACCOUNT" />
-          </div>
         </form>
       </div>
     </Layout>

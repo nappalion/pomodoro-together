@@ -28,6 +28,17 @@ function Login() {
         setLoginText(errorCode);
       });
   }
+  function loginWithTestUser() {
+    signInWithEmailAndPassword(auth, "test@gmail.com", "test123")
+      .then((userCredential) => {
+        // Signed in
+        navigate("/timer");
+      })
+      .catch((error) => {
+        const errorCode = error.code.toString();
+        setLoginText(errorCode);
+      });
+  }
 
   function handleChangeEmail(event) {
     setLoginText("");
@@ -90,6 +101,12 @@ function Login() {
         onClick={() => login(email, password)}
         style={{ marginTop: 50 }}
         text="Log In"
+      />
+
+      <Button
+        onClick={() => loginWithTestUser()}
+        style={{ backgroundColor: "#c2c2c2" }}
+        text="Log In As Test User"
       />
 
       <div style={{ display: "flex" }}>
