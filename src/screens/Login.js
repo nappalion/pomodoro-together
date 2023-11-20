@@ -78,6 +78,7 @@ function Login() {
         value={password}
         isPassword={true}
         onChangeText={handleChangePassword}
+        onSubmit={() => login(email, password)}
       />
       <TextButton
         onClick={() => {

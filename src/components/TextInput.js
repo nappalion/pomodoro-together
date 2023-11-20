@@ -24,7 +24,9 @@ function TextInput(props) {
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
-      onSubmit(event);
+      if (onSubmit) {
+        onSubmit(event);
+      }
     }
   };
 
