@@ -122,7 +122,7 @@ function Menu(props) {
           onClick={() => navigate("/analytics")}
           icon={AnalyticsIcon}
         />
-        <Button
+        {/* <Button
           color={location.pathname === "/account" ? "#DADADA" : "white"}
           secondaryColor="#DADADA"
           fontColor="black"
@@ -137,7 +137,7 @@ function Menu(props) {
           text="Settings"
           onClick={() => navigate("/settings")}
           icon={SettingsIcon}
-        />
+        /> */}
         <Button
           color="white"
           secondaryColor="#DADADA"

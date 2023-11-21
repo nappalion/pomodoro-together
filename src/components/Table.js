@@ -42,9 +42,9 @@ function Table(props) {
     },
   };
 
-  data.map((item, index) => {
-    console.log(item);
-  });
+  // data.map((item, index) => {
+  //   console.log(item);
+  // });
 
   function handleRowClick(groupId) {
     const currUserId = auth.currentUser.uid;
@@ -87,7 +87,7 @@ function Table(props) {
                   {Object.keys(item.users).length} / {item.roomCapacity}
                 </td>
                 <td style={{ display: "flex", alignItems: "center" }}>
-                  {!noIcons && (
+                  {false && (
                     <IconButton
                       style={styles.icon}
                       src={GroupSettingsIcon}
