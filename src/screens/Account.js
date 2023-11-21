@@ -5,7 +5,6 @@ View the User Account details
 
 import React from "react";
 import Layout from "../components/Layout";
-import Button from "../components/Button";
 
 function Account(props) {
   const styles = {

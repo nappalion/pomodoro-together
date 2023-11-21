@@ -61,9 +61,9 @@ function Groups(props) {
         const group = groups[groupKey];
         group.groupKey = groupKey;
         console.log(group);
-        if (group.users && userId in group.users && group != -1) {
+        if (group.users && userId in group.users && group !== -1) {
           myGroups.push(group);
-        } else if (group.users && !(userId in group.users) && group != -1) {
+        } else if (group.users && !(userId in group.users) && group !== -1) {
           discoverGroups.push(group);
         }
       }

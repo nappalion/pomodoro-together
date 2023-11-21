@@ -55,6 +55,7 @@ function TimerGroup(props) {
     setFilteredUsers(users);
   }, [users]);
 
+
   const styles = {
     container: {
       height: "100vh",
@@ -86,7 +87,7 @@ function TimerGroup(props) {
       maxHeight: width > height ? "calc(100vh - 100px)" : width / 2,
       overflowY: "scroll",
       display: "grid",
-      gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+      gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))",
       gridAutoFlow: "dense",
       gap: 10,
       backgroundColor: "#9EB3C2",
@@ -117,7 +118,7 @@ function TimerGroup(props) {
         {currGroupName ? (
           <span style={styles.titleText}>
             {users ? Object.keys(users).length : 0} Others in
-            {currGroupName != "" ? " " + currGroupName : " N/A"}
+            {currGroupName !== "" ? " " + currGroupName : " N/A"}
           </span>
         ) : (
           <span style={styles.titleText}>
