@@ -8,7 +8,7 @@
 5. [Schema](#Schema)
 
 ## Final Product
-
+![Pomodoro Together Demo](./readme-assets/pomodoro-together-demo.gif)
 
 ## Overview
 
@@ -105,6 +105,7 @@ The app also features a social aspect with custom user profiles allowing users t
 
 ### Digital Wireframe
 
+![Digital Wireframe](./readme-assets/digital-wireframe.PNG)
 
 [Link to Figma](https://www.figma.com/file/0AexYwh1OhwmSkBwzqPawq/PomodoroTogether?type=design&node-id=0%3A1&mode=design&t=JShyRqysyiCsSMX2-1)
 
