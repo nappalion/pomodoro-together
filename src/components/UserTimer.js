@@ -68,7 +68,9 @@ function UserTimer(props) {
       });
       playSound();
       saveTime();
-      setTimer(maxTime);
+      setTimeout(() => {
+        setTimer(maxTime);
+      }, 1000);
       const timerRef = ref(
         database,
         `groups/${currGroup}/users/${userId}/timer`
@@ -101,19 +103,16 @@ function UserTimer(props) {
       stopTimer();
     }
 
-    if (timer == maxTime) {
+    if (timer === maxTime) {
       pauseTimer();
-      console.log("Times match:");
     }
   }, [timer]);
 
   useEffect(() => {
     const userId = auth.currentUser.uid;
-    console.log("curr group: " + currGroup);
     const timerRef = ref(database, `groups/${currGroup}/users/${userId}/timer`);
     get(timerRef).then((snapshot) => {
       if (snapshot.exists()) {
-        console.log(snapshot.val());
         setTimer(snapshot.val());
         setIsJoined(true);
       } else {
@@ -128,7 +127,6 @@ function UserTimer(props) {
     );
     get(maxTimeRef).then((snapshot) => {
       if (snapshot.exists()) {
-        console.log(snapshot.val());
         setMaxTime(snapshot.val());
       } else {
         // If the timer value doesn't exist in the database, set it to 60
@@ -150,8 +148,6 @@ function UserTimer(props) {
     const userId = auth.currentUser.uid;
     const currDate = getCurrentDate();
 
-    console.log("Times: " + timer.toString() + " " + maxTime.toString());
-
     const totalFocusTimeRef = ref(
       database,
       `users/${auth.currentUser.uid}/totalFocusTime`
@@ -172,15 +168,6 @@ function UserTimer(props) {
     get(prevTimerRef).then((timerData) => {
       get(totalFocusTimeRef).then((totalFocusData) => {
         if (timerData.exists() && totalFocusData.exists()) {
-          console.log("----------------");
-          console.log("TimerData.val: " + timerData.val().toString());
-          console.log("Timer: " + timer.toString());
-          console.log("TocalFocusData.val: " + totalFocusData.val().toString());
-          console.log(
-            "Value for focusTime: " +
-              (timerData.val() - timer + totalFocusData.val()).toString()
-          );
-          console.log("----------------");
           if (timer < timerData.val()) {
             set(
               ref(database, "users/" + userId + "/totalFocusTime/"),
@@ -195,18 +182,21 @@ function UserTimer(props) {
           const focusTimeData = snapshot.val();
           let dateExists = false;
           for (let dateKey in focusTimeData) {
-            if (dateKey == currDate) {
-              if (timer < timerData.val()) {
-                set(
-                  ref(database, "users/" + userId + "/focusTime/" + dateKey),
-                  timerData.val() - timer + focusTimeData[dateKey]
-                );
-                dateExists = true;
-              }
+            if (dateKey === currDate) {
+              console.log("IMPORTANT: " + focusTimeData[dateKey]);
+              set(
+                ref(database, "users/" + userId + "/focusTime/" + dateKey),
+                timerData.val() - timer + focusTimeData[dateKey]
+              );
+              dateExists = true;
             }
           }
 
+          // TODO: THIS RUNS EVERYTIME WE GO TO A NEW GROUP AND IT RESETS IT TO 0
           if (!dateExists) {
+            console.log(
+              "date no exist: " + (timerData.val() - timer).toString()
+            );
             set(
               ref(
                 database,
@@ -253,7 +243,6 @@ function UserTimer(props) {
 
   function startTimer() {
     setIsRunning(true);
-    // console.log('groups/' + currGroup + "/users/" + auth.currentUser.uid + "/isRunning")
     set(
       ref(
         database,

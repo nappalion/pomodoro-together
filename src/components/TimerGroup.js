@@ -21,8 +21,6 @@ function TimerGroup(props) {
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerHeight);
 
-  console.log("TimerGroup: " + JSON.stringify(users))
-
   useEffect(() => {
     function handleResize() {
       setWidth(window.innerWidth);
@@ -54,7 +52,6 @@ function TimerGroup(props) {
   useEffect(() => {
     setFilteredUsers(users);
   }, [users]);
-
 
   const styles = {
     container: {

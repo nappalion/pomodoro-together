@@ -60,7 +60,6 @@ function Groups(props) {
       for (let groupKey in groups) {
         const group = groups[groupKey];
         group.groupKey = groupKey;
-        console.log(group);
         if (group.users && userId in group.users && group !== -1) {
           myGroups.push(group);
         } else if (group.users && !(userId in group.users) && group !== -1) {
@@ -91,8 +90,6 @@ function Groups(props) {
         filteredGroupData.push(group);
       }
     }
-
-    console.log("Filtered Group Data: " + filteredGroupData);
 
     navigate("/group-search-results", {
       state: { search: event.target.value, groupData: filteredGroupData },

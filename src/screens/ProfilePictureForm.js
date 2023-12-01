@@ -47,7 +47,6 @@ function ProfilePictureForm(props) {
 
   function testUpload() {
     const profileRef = storageRef(storage, auth.currentUser.uid);
-    console.log(storage);
     if (profilePic) {
       uploadBytes(profileRef, profilePic)
         .then((snapshot) => {

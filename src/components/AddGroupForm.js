@@ -7,16 +7,18 @@ import { useNavigate } from "react-router-dom";
 import TextInput from "./TextInput.js";
 import Button from "./Button.js";
 
-const styles={
+const styles = {
   container: {
     width: "50%",
   },
-  invalidText: { 
-    color: "#1C1C1C", fontSize: 13, marginTop: 5 
+  invalidText: {
+    color: "#1C1C1C",
+    fontSize: 13,
+    marginTop: 5,
   },
   button: {
-    marginTop: 50
-  }
+    marginTop: 50,
+  },
 };
 
 const AddGroupForm = () => {
@@ -57,9 +59,7 @@ const AddGroupForm = () => {
 
   return (
     <div style={styles.container}>
-      <span style={styles.invalidText}>
-        {invalidText}
-      </span>
+      <span style={styles.invalidText}>{invalidText}</span>
 
       <TextInput
         name="groupname"
@@ -84,6 +84,5 @@ const AddGroupForm = () => {
     </div>
   );
 };
-
 
 export default AddGroupForm;

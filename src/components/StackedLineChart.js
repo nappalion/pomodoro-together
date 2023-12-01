@@ -43,8 +43,6 @@ const options = {
 const LineChartStacked = (props) => {
   const { userDataThisWeek, userDataLastWeek, userDataLastLastWeek } = props;
 
-  console.log(userDataLastLastWeek);
-
   const data = {
     labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], //x axis
     datasets: [

@@ -29,7 +29,6 @@ function TextButton(props) {
       }}
       onMouseEnter={() => {
         setIsHovered(true);
-        console.log("hello");
       }}
       onMouseLeave={() => {
         setIsHovered(false);

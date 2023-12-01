@@ -30,8 +30,6 @@ function Layout(props) {
     });
   }, []);
 
-  console.log(header);
-
   return (
     <div style={{ ...props.style, ...styles.container }}>
       <div style={styles.header}>

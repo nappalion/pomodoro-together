@@ -56,6 +56,7 @@ function Signup(props) {
           set(ref(database, `users/${userID}`), {
             currGroup: -1,
             username: username.toString(),
+            totalFocusTime: 0,
           });
           navigate("/profile-picture-form");
         })

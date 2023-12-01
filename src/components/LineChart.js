@@ -41,9 +41,6 @@ const options = {
 const LineChart = (props) => {
   const { labels, userData } = props;
 
-  console.log(labels);
-  console.log(userData);
-
   const data = {
     labels: labels, //x axis; list
     datasets: [

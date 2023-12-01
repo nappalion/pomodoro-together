@@ -19,8 +19,6 @@ function Timer() {
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerHeight);
 
-
-
   useEffect(() => {
     function handleResize() {
       setWidth(window.innerWidth);
@@ -74,7 +72,10 @@ function Timer() {
       const currentGroup = snapshot.val();
       setCurrGroup(currentGroup);
 
-      const currGroupUsersRef = ref(database, "groups/" + currentGroup + "/users");
+      const currGroupUsersRef = ref(
+        database,
+        "groups/" + currentGroup + "/users"
+      );
       onValue(currGroupUsersRef, (snapshot) => {
         const users = snapshot.val();
         let updatedUsers = {};
@@ -94,9 +95,15 @@ function Timer() {
                 const user = snapshot.val();
                 const userDetails = {
                   username: user.username,
-                  hoursFocused: user.focusTime && user.focusTime[getCurrentDate()] ? user.focusTime[getCurrentDate()] : 0,
+                  hoursFocused:
+                    user.focusTime && user.focusTime[getCurrentDate()]
+                      ? user.focusTime[getCurrentDate()]
+                      : 0,
                 };
-                updatedUsers[userKey] = { ...updatedUsers[userKey], ...userDetails };
+                updatedUsers[userKey] = {
+                  ...updatedUsers[userKey],
+                  ...userDetails,
+                };
 
                 // If the async function is done, then we use resolve() to say this promise done
                 resolve();
@@ -133,7 +140,6 @@ function Timer() {
         {
           <div style={styles.rightSide}>
             <TimerGroup currGroup={currGroup} users={currGroupUsers} />
-            
           </div>
         }
       </div>
